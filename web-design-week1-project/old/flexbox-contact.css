@@ -1,0 +1,38 @@
+.container, header, nav, .bubble, form {
+    display:flex;
+}
+
+form {
+    flex-direction: column;
+    width: 400px;
+}
+
+.container{
+    flex-direction:column;
+}
+
+nav {
+    flex-basis: 50%;
+    justify-content: space-evenly;
+}
+
+.bubble {
+    justify-content: space-around;
+}
+
+
+
+header {
+    align-items: center;
+}
+
+
+h1 {
+    flex-basis: 40%;
+}
+
+
+/* header (img / h2) nav*/
+header flex 
+nav flex blox
+greater div grid

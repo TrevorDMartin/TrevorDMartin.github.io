@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 10% 0 10%;   
+}
+header h1, header h2 {
+    margin: 5px;
+}
+header h2 {
+    font-size: 1em;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+header nav {
+    width: 200px;
+    height: 2em;
+}
+header nav div {
+    width: 45%;
+    background-color: rgb(224, 223, 223);
+    border-radius: 5px;
+    text-align: center;
+    line-height: 32px;
+}
+header nav div a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+main p {
+    border-top: black 1px solid;
+    border-bottom: solid black 1px;
+    padding: 20px 0 20px 0;
+}
+main h2 {
+    font-size: 1.1em;
+    color: rgb(114, 114, 114);
+}
+
+main section h3 {
+    font-size: 1em;
+    font-weight: normal;
+}
+main section div {
+    height: 2em;
+}
+section ul {
+    margin: 0.5em 1em 0.5em 1em;
+}
+section:nth-child(2) ul, section:nth-child(3) ul {
+    margin-bottom: 1.1em;
+    
+}
+main > section:nth-child(3) {
+    border-top: black 1px solid;
+    border-bottom: solid black 1px;
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        padding: 0%;
+    }
+}
