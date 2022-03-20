@@ -27,9 +27,7 @@ header nav div a {
     color: black;
 }
 main p {
-    border-top: black 1px solid;
-    border-bottom: solid black 1px;
-    padding: 20px 0 20px 0;
+    padding-top: 15px;
 }
 main h2 {
     font-size: 1.1em;
@@ -44,15 +42,10 @@ main section div {
     height: 2em;
 }
 section ul {
-    margin: 0.5em 1em 0.5em 1em;
+    margin: 0.5em 1em 1em 1em;
 }
-section:nth-child(2) ul, section:nth-child(3) ul {
-    margin-bottom: 1.1em;
-    
-}
-main > section:nth-child(3) {
+main > section, main > p {
     border-top: black 1px solid;
-    border-bottom: solid black 1px;
 }
 
 @media screen and (max-width: 1000px) {
