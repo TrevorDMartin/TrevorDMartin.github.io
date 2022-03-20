@@ -21,7 +21,7 @@ main section div {
     align-items: center;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 775px) {
     section {
         align-items: center;
         

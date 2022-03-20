@@ -48,8 +48,11 @@ main > section, main > p {
     border-top: black 1px solid;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 775px) {
     body {
         padding: 0%;
+    }
+    main ul {
+        padding-left: 5px;
     }
 }
