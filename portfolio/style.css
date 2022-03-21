@@ -47,7 +47,9 @@ section ul {
 main > section, main > p {
     border-top: black 1px solid;
 }
-
+section ul a {
+    color: black;
+}
 @media screen and (max-width: 775px) {
     body {
         padding: 0%;
