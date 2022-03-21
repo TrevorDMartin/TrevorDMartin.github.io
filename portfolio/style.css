@@ -47,7 +47,7 @@ section ul {
 main > section, main > p {
     border-top: black 1px solid;
 }
-main > section:nth-child(3) > ul > li a {
+main > section:nth-child(3) > ul a {
     color: black;
 }
 @media screen and (max-width: 775px) {
