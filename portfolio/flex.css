@@ -1,38 +1,99 @@
-body, header, header nav, section {
-    display: flex; 
-}
-
-body, header {
+header {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-section {
-    flex-direction: column;
-}
-
-header nav {
+header ul {
+    display: flex;
     justify-content: space-between;
 }
 
-main section div {
+header li {
+    flex-basis: 40%;
+}
+
+main section:nth-last-child(-n+2) div {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+#experience nav {
+    display: grid;
+    grid-template-areas: 
+        "Amortize AmortizeDescription"
+        "Recipe RecipeDescription"
+        "Vending VendingDescription"
+        "Venmo VenmoDescription"
+    ;
+    gap: 5px;
+    align-items: center;
+    justify-content: start;
+
+}
+
+#experience > nav > div:nth-child(1) {
+    grid-area: Amortize;
+}
+#experience > nav > p:nth-child(2) {
+    grid-area: AmortizeDescription;
+}
+#experience > nav > div:nth-child(3) {
+    grid-area: Recipe;
+}
+#experience > nav > p:nth-child(4) {
+    grid-area: RecipeDescription;
+}
+#experience > nav > div:nth-child(5) {
+    grid-area: Vending;
+}
+#experience > nav > p:nth-child(6) {
+    grid-area: VendingDescription;
+}
+#experience > nav > div:nth-child(7) {
+    grid-area: Venmo;
+}
+#experience > nav > p:nth-child(8) {
+    grid-area: VenmoDescription;
+}
+
+#experience div {
+    display: flex;
+}
+
 @media screen and (max-width: 775px) {
     section {
+        display: flex;
+        flex-direction: column;
         align-items: center;
         
     }
-    main > section:nth-child(5) > div {
-        align-items: space-between;
+    main section:nth-last-child(-n+2) div {
+        flex-direction: column;
     }
+
     main > section > div > h3:nth-child(1) {
         flex-basis: 60%;
     }
     main > section > div > h3:nth-child(2) {
         flex-basis: 30%;
     }
+
+    #experience nav {
+        display: grid;
+        grid-template-areas: 
+            "Amortize Recipe"
+            "AmortizeDescription RecipeDescription"
+            "Vending Venmo"
+            "VendingDescription VenmoDescription"
+        ;
+        gap: 10px;
+    }
 }
+
+
+
+
+
+
