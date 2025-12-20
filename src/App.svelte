@@ -1,47 +1,62 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+    import './app.css';
+    import type { Show, PressItem } from './types';
+    
+    import Header from './lib/Header.svelte';
+    import Navbar from './lib/Navbar.svelte';
+    import Gallery from './lib/Gallery.svelte';
+    import MusicVideo from './lib/MusicVideo.svelte';
+    import ShowList from './lib/ShowList.svelte';
+    import About from './lib/About.svelte';
+    import Press from './lib/Press.svelte';
+    import Footer from './lib/Footer.svelte';
+
+    const upcomingShows: Show[] = [
+        { date: "March 15, 2025", venue: "The Velvet Underground", location: "Brooklyn, NY" },
+        { date: "March 22, 2025", venue: "Metro Music Hall", location: "Chicago, IL" },
+        { date: "April 5, 2025", venue: "The Echo", location: "Los Angeles, CA" }
+    ];
+
+    const pastShows: Show[] = [
+        { date: "Dec 10, 2024", venue: "The Bowery Ballroom", location: "New York, NY" },
+        { date: "Nov 18, 2024", venue: "Music Hall of Williamsburg", location: "Brooklyn, NY" }
+    ];
+
+    const pressQuotes: PressItem[] = [
+        { outlet: "Indie Music Magazine", quote: "Cassettiquette delivers a fresh take on indie rock." },
+        { outlet: "Sound & Vision Blog", quote: "A band that understands the power of melody." }
+    ];
 </script>
 
+<Header title="Cassettiquette" tagline="Indie Rock Press Kit" />
+<Navbar />
+
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+    <Gallery />
+    <MusicVideo />
+    
+    <section id="music">
+        <h2>Music</h2>
+        <div class="music-player">
+            <p>Apple Music Embedded Player Placeholder</p>
+        </div>
+    </section>
 
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+    <ShowList upcoming={upcomingShows} past={pastShows} />
+    <About />
+    <Press quotes={pressQuotes} />
 </main>
 
+<Footer />
+
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
+    main { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; }
+    .music-player {
+        background: #1a1a1a;
+        border: 2px dashed #8b7ba8;
+        padding: 4rem;
+        text-align: center;
+        color: #9988bb;
+        font-style: italic;
+    }
 </style>
