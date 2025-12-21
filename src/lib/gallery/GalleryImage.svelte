@@ -4,16 +4,26 @@
   interface $$Props {
     picture: PictureMetadata;
     alt: string;
+    priority?: boolean;
+    onLoad?: () => void;
   }
 
-  let { picture, alt }: $$Props = $props();
+  let { picture, alt, priority = false, onLoad }: $$Props = $props();
 </script>
 
 <div class="gallery-item">
   <picture>
     <source srcset={picture.sources.avif} type="image/avif" />
     <source srcset={picture.sources.webp} type="image/webp" />
-    <img src={picture.img.src} width={picture.img.w} height={picture.img.h} {alt} loading="lazy" />
+    <img
+      src={picture.img.src}
+      width={picture.img.w}
+      height={picture.img.h}
+      {alt}
+      onload={onLoad}
+      loading="eager"
+      fetchpriority={priority ? 'high' : 'low'}
+    />
   </picture>
 </div>
 

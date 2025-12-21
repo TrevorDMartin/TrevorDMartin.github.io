@@ -33,3 +33,7 @@ export interface PictureMetadata {
     h: number;
   };
 }
+
+export interface PictureMetadataTrackLoading extends PictureMetadata {
+  isLoading: boolean;
+}

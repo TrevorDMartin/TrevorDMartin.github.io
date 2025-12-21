@@ -1,23 +1,48 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
   import GalleryImage from './GalleryImage.svelte';
-  import type { PictureMetadata } from '../../types';
+  import type { PictureMetadata, PictureMetadataTrackLoading } from '../../types';
 
   const imageModules = import.meta.glob<PictureMetadata>('../../assets/gallery/*.{jpg,jpeg,png}', {
     eager: true,
-    query: 'as=picture&format=avif;webp;jpg',
+    query: 'as=picture&format=avif;webp;jpg&width=400;800',
   });
 
-  const photos: PictureMetadata[] = Object.values(imageModules);
+  const photos: PictureMetadataTrackLoading[] = Object.entries(imageModules)
+    .sort(([picturePathA], [picturePathB]) => picturePathA.localeCompare(picturePathB))
+    .map(([_, pictureMetadata]) => ({
+      ...pictureMetadata,
+      isLoading: true,
+    }));
 
   let currentIndex = $state(0);
   let itemsToShow = $state(3);
   let intervalId: number;
 
   function nextSlide(): void {
-    // Loop back to start smoothly
-    currentIndex = (currentIndex + 1) % photos.length;
+    //   currentIndex = (currentIndex + 1) % photos.length;
+
+    // 1. Identify the photos that will be shown in the next window
+    const nextWindowPhotos = photos.slice(currentIndex, currentIndex + itemsToShow);
+
+    // 1b. If the window wraps around the end of the array, get the remaining items from the start
+    if (nextWindowPhotos.length < itemsToShow) {
+      const remainingCount = itemsToShow - nextWindowPhotos.length;
+      nextWindowPhotos.push(...photos.slice(0, remainingCount));
+    }
+
+    // 2. Check if all photos in that window are loaded
+    const allLoaded = nextWindowPhotos.every((photo) => !photo.isLoading);
+
+    // 3. Only update the index if the condition is met
+    if (allLoaded) {
+      currentIndex = (currentIndex + itemsToShow) % photos.length;
+    } else {
+      console.log('Waiting for photos to load...');
+    }
   }
+
+  // Calculate the percentage to shift the track
+  const offset = $derived(currentIndex * (100 / itemsToShow));
 
   function updateItemsToShow(): void {
     if (typeof window === 'undefined') return;
@@ -29,14 +54,11 @@
 
   $effect(() => {
     updateItemsToShow();
-    intervalId = window.setInterval(nextSlide, 4000);
+    intervalId = window.setInterval(nextSlide, 6000);
     return () => {
       clearInterval(intervalId);
-    }
+    };
   });
-
-  // Calculate the percentage to shift the track
-  const offset = $derived(currentIndex * (100 / itemsToShow));
 </script>
 
 <svelte:window onresize={updateItemsToShow} />
@@ -46,7 +68,14 @@
     <div class="gallery-track" style:transform="translateX(-{offset}%)">
       {#each photos as photo, i}
         <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
-          <GalleryImage picture={photo} alt="Band onstage {i + 1}" />
+          <GalleryImage
+            picture={photo}
+            alt="Band onstage {i + 1}"
+            priority={i < itemsToShow}
+            onLoad={() => {
+              photos[i].isLoading = false;
+            }}
+          />
         </div>
       {/each}
     </div>
