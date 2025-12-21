@@ -1,51 +1,92 @@
 <script lang="ts">
-    import type { Show } from '../types';
-    
-    export let upcoming: Show[];
-    export let past: Show[];
+  import type { Show } from '../types';
+  export let upcoming: Show[];
+  export let past: Show[];
 
-    let showUpcoming: boolean = true;
+  let showUpcoming: boolean = true;
 </script>
 
 <section id="shows">
-    <h2>Shows</h2>
-    <div class="controls">
-        <button class:active={showUpcoming} on:click={() => showUpcoming = true}>Upcoming</button>
-        <button class:active={!showUpcoming} on:click={() => showUpcoming = false}>Past Shows</button>
-    </div>
-    
-    <div class="list">
-        {#each (showUpcoming ? upcoming : past) as show}
-            <div class="show-item">
-                <div class="show-date">{show.date}</div>
-                <div class="show-venue">{show.venue}</div>
-                <div class="show-location">{show.location}</div>
-            </div>
-        {/each}
-    </div>
+  <h2>Shows</h2>
+  <div class="toggle-group">
+    <button class:active={showUpcoming} on:click={() => (showUpcoming = true)}> Upcoming </button>
+    <button class:active={!showUpcoming} on:click={() => (showUpcoming = false)}> Past </button>
+  </div>
+
+  <div class="list">
+    {#each showUpcoming ? upcoming : past as show}
+      <div class="show-card">
+        <div class="info">
+          <span class="date">{show.date}</span>
+          <span class="venue">{show.venue}</span>
+          <span class="loc">{show.location}</span>
+        </div>
+        {#if showUpcoming}
+          <button class="tix">Tickets</button>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </section>
 
 <style>
-    .controls { display: flex; gap: 1rem; margin-bottom: 2rem; }
-    button {
-        background: #1a1a1a;
-        color: #c4b5e0;
-        border: 2px solid #8b7ba8;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        cursor: pointer;
-        text-transform: uppercase;
+  .toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    padding: 1rem; /* Large touch target */
+    background: #1a1a1a;
+    color: #c4b5e0;
+    border: 1px solid #8b7ba8;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button.active {
+    background: #8b7ba8;
+    color: white;
+  }
+
+  .show-card {
+    padding: 1.5rem;
+    background: #111;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .date {
+    display: block;
+    font-weight: bold;
+    color: #b8a8d4;
+  }
+  .venue {
+    display: block;
+    font-size: 1.2rem;
+  }
+
+  .tix {
+    background: transparent;
+    border: 1px solid #b8a8d4;
+    color: #b8a8d4;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .show-card {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
-    button.active {
-        background: linear-gradient(135deg, #8b7ba8 0%, #b8a8d4 100%);
-        color: #fff;
+    .tix {
+      width: auto;
+      padding: 0.5rem 2rem;
     }
-    .show-item {
-        background: #1a1a1a;
-        padding: 2rem;
-        border-radius: 8px;
-        border-left: 4px solid #8b7ba8;
-        margin-bottom: 1.5rem;
-    }
-    .show-date { color: #b8a8d4; font-weight: bold; font-size: 1.3rem; }
+  }
 </style>
