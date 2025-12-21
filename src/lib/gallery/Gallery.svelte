@@ -27,15 +27,10 @@
     else itemsToShow = 3;
   }
 
-  onMount(() => {
+  $effect(() => {
     updateItemsToShow();
-    window.addEventListener('resize', updateItemsToShow);
     intervalId = window.setInterval(nextSlide, 4000);
-  });
-
-  onDestroy(() => {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', updateItemsToShow);
+    return () => {
       clearInterval(intervalId);
     }
   });
@@ -44,6 +39,7 @@
   const offset = $derived(currentIndex * (100 / itemsToShow));
 </script>
 
+<svelte:window onresize={updateItemsToShow} />
 <section id="photos">
   <h2>Photos</h2>
   <div class="gallery-viewport">
