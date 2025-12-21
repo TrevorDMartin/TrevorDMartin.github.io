@@ -25,6 +25,7 @@ export interface PictureMetadata {
   sources: {
     avif: string;
     webp: string;
+    jpg: string;
   };
   img: {
     src: string;

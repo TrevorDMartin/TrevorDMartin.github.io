@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { PictureMetadata } from '../types';
+  import type { PictureMetadata } from '../../types';
 
   interface $$Props {
     picture: PictureMetadata;
     alt: string;
   }
+
   let { picture, alt }: $$Props = $props();
 </script>
 
@@ -16,23 +17,15 @@
   </picture>
 </div>
 
-<!-- <style>
-  .gallery-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-  }
-</style> -->
 <style>
   .gallery-item {
-    flex: 0 0 400px;
-    scroll-snap-align: start;
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Use aspect-ratio to reserve space before the image loads */
+    height: auto; /* Allow aspect-ratio to dictate height */
     background: #1a1a1a;
     border-radius: 8px;
     overflow: hidden;
-    height: 300px; /* Fixed height for consistency */
-    display: flex;
+    /* display: flex; */
   }
 
   .gallery-item img {
