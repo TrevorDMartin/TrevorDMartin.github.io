@@ -12,7 +12,6 @@
     if (event.key === 'Escape') onClose();
   }
 
-  // Handle scroll lock and keyboard events via effect
   $effect(() => {
     if (photo) {
       document.body.style.overflow = 'hidden';
@@ -27,21 +26,16 @@
 <svelte:window onkeydown={handleKeydown} />
 
 {#if photo}
-  <div
-    class="modal-backdrop"
-    role="button"
-    tabindex="-1"
-    onkeydown={(e) => e.key === 'Enter' && onClose()}
-  >
-    <div class="modal-content" role="presentation">
-      <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
-      <button class="full-image" onclick={onClose}>
+  <div class="modal-backdrop">
+    <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
+
+    <button class="modal-content" onclick={onClose}>
       <img
         src={photo.default.img.src}
         alt="Enlarged gallery photo: {photo.default.img.src}"
+        class="full-image"
       />
-      </button>
-    </div>
+    </button>
   </div>
 {/if}
 
@@ -53,52 +47,65 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.95);
+    overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     z-index: 1000;
-    padding: 1rem;
+    padding: 60px 1rem 2rem 1rem;
+    pointer-events: none;
   }
 
   .modal-content {
     position: relative;
-    max-width: 95vw;
-    max-height: 90vh;
+    width: 100%;
+    max-width: 1200px; /* Capping the maximum width of the image */
     display: flex;
     justify-content: center;
-    align-items: center;
+    cursor: pointer;
   }
 
   .full-image {
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-width: 1200px; /* Ensures consistent max size */
+    display: block;
     border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
   }
 
   .close-button {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    background: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
     border: none;
     color: white;
-    font-size: 3rem;
+    font-size: 2.5rem;
     cursor: pointer;
     line-height: 1;
-    padding: 10px;
+    padding: 5px 15px;
+    border-radius: 50%;
+    z-index: 1001;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
 
   /* Desktop adjustments */
   @media (min-width: 1024px) {
-    .close-button {
-      top: -20px;
-      right: -60px;
+    .modal-backdrop {
+      padding-top: 40px;
+      align-items: center; /* Center vertically on desktop if image fits */
     }
-    .modal-content {
-      max-width: 85vw;
+
+    .close-button {
+      top: 20px;
+      right: 20px;
+      font-size: 3rem;
     }
   }
 </style>
