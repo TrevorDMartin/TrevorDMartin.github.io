@@ -16,11 +16,8 @@
 
   let currentIndex = $state(0);
   let itemsToShow = $state(3);
-  let intervalId: number;
 
   function nextSlide(): void {
-    //   currentIndex = (currentIndex + 1) % photos.length;
-
     // 1. Identify the photos that will be shown in the next window
     const nextWindowPhotos = photos.slice(currentIndex, currentIndex + itemsToShow);
 
@@ -54,7 +51,7 @@
 
   $effect(() => {
     updateItemsToShow();
-    intervalId = window.setInterval(nextSlide, 6000);
+    const intervalId = window.setInterval(nextSlide, 6000);
     return () => {
       clearInterval(intervalId);
     };
