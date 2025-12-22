@@ -16,30 +16,59 @@
 
   let currentIndex = $state(0);
   let itemsToShow = $state(3);
+  let intervalId: number | null = $state(null);
+  const offset = $derived(currentIndex * (100 / itemsToShow));
 
-  function nextSlide(): void {
-    // 1. Identify the photos that will be shown in the next window
-    const nextWindowPhotos = photos.slice(currentIndex, currentIndex + itemsToShow);
+  function getNextIndex(index: number, step: number): number {
+    return (index + step) % photos.length;
+  }
 
-    // 1b. If the window wraps around the end of the array, get the remaining items from the start
-    if (nextWindowPhotos.length < itemsToShow) {
-      const remainingCount = itemsToShow - nextWindowPhotos.length;
-      nextWindowPhotos.push(...photos.slice(0, remainingCount));
+  function checkWindowLoaded(index: number): boolean {
+    const windowPhotos = photos.slice(index, index + itemsToShow);
+
+    if (windowPhotos.length < itemsToShow) {
+      const remainingCount = itemsToShow - windowPhotos.length;
+      windowPhotos.push(...photos.slice(0, remainingCount));
     }
 
-    // 2. Check if all photos in that window are loaded
-    const allLoaded = nextWindowPhotos.every((photo) => !photo.isLoading);
+    return windowPhotos.every((photo) => !photo.isLoading);
+  }
 
-    // 3. Only update the index if the condition is met
-    if (allLoaded) {
-      currentIndex = (currentIndex + itemsToShow) % photos.length;
+  function nextSlide(): void {
+    const nextIndex = getNextIndex(currentIndex, itemsToShow);
+
+    if (checkWindowLoaded(nextIndex)) {
+      currentIndex = nextIndex;
     } else {
       console.log('Waiting for photos to load...');
     }
   }
 
-  // Calculate the percentage to shift the track
-  const offset = $derived(currentIndex * (100 / itemsToShow));
+  function manualPrev(): void {
+    restartAutoCycleTimeout();
+    currentIndex = getNextIndex(currentIndex, -itemsToShow);
+  }
+
+  function manualNext(): void {
+    restartAutoCycleTimeout();
+    currentIndex = getNextIndex(currentIndex, itemsToShow);
+  }
+
+  function stopAutoCycle(): void {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+
+  function startAutoCycle(): void {
+    intervalId = window.setInterval(nextSlide, 6000);
+  }
+
+  function restartAutoCycleTimeout(): void {
+    stopAutoCycle();
+    startAutoCycle();
+  }
 
   function updateItemsToShow(): void {
     if (typeof window === 'undefined') return;
@@ -51,16 +80,28 @@
 
   $effect(() => {
     updateItemsToShow();
-    const intervalId = window.setInterval(nextSlide, 6000);
+    startAutoCycle();
     return () => {
-      clearInterval(intervalId);
+      stopAutoCycle();
     };
   });
 </script>
 
 <svelte:window onresize={updateItemsToShow} />
+
 <section id="photos">
-  <h2>Photos</h2>
+  <div class="header-row">
+    <h2>Photos</h2>
+    <div class="controls">
+      <button onclick={manualPrev} aria-label="Previous photos" title="Previous">
+        &larr;
+      </button>
+      <button onclick={manualNext} aria-label="Next photos" title="Next">
+        &rarr;
+      </button>
+    </div>
+  </div>
+
   <div class="gallery-viewport">
     <div class="gallery-track" style:transform="translateX(-{offset}%)">
       {#each photos as photo, i}
@@ -80,20 +121,47 @@
 </section>
 
 <style>
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .controls button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.2s;
+  }
+
+  .controls button:hover {
+    background: #555;
+  }
+
   .gallery-viewport {
     width: 100%;
-    overflow: hidden; /* Hide the photos outside the view */
+    overflow: hidden;
     position: relative;
   }
 
   .gallery-track {
     display: flex;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth hardware-accelerated movement */
-    gap: 0; /* Gap is easier to manage inside the slide padding */
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 0;
   }
 
   .gallery-slide {
-    padding: 0 10px; /* This creates the visual gap */
+    padding: 0 10px;
     box-sizing: border-box;
   }
 </style>
