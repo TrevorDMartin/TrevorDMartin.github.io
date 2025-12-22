@@ -54,15 +54,25 @@
 <style>
   main {
     max-width: 1200px;
-    margin: 3rem auto;
-    padding: 0 2rem;
+    margin: 1rem auto;
+    padding: 0 1rem;
   }
   .music-player {
     background: #1a1a1a;
     border: 2px dashed #8b7ba8;
-    padding: 4rem;
+    padding: 2rem;
     text-align: center;
     color: #9988bb;
     font-style: italic;
+  }
+
+  @media (min-width: 768px) {
+    main {
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    .music-player {
+      padding: 4rem;
+    }
   }
 </style>

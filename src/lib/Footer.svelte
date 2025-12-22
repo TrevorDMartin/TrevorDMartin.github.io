@@ -13,9 +13,9 @@
 
 <style>
   footer {
-    padding: 2rem;
+    padding: 1rem;
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 2rem;
     border-top: 2px solid #8b7ba8;
   }
   a {
@@ -26,5 +26,12 @@
     color: #9988bb;
     margin-top: 1rem;
     font-size: 0.9rem;
+  }
+
+  @media (min-width: 768px) {
+    footer {
+      padding: 2rem;
+      margin-top: 4rem;
+    }
   }
 </style>
