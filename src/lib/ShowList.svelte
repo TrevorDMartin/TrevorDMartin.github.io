@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Show } from '../types';
+  import type { Show } from './types';
   export let upcoming: Show[];
   export let past: Show[];
 
@@ -14,7 +14,7 @@
   </div>
 
   <div class="list">
-    {#each showUpcoming ? upcoming : past as show}
+    {#each showUpcoming ? upcoming : past as show (show.date)}
       <div class="show-card">
         <div class="info">
           <span class="date">{show.date}</span>
