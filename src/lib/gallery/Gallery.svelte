@@ -1,10 +1,12 @@
 <script lang="ts">
+  import type { PictureMetadata, PictureMetadataTrackLoading } from '../types';
   import GalleryImage from './GalleryImage.svelte';
-  import type { PictureMetadata, PictureMetadataTrackLoading } from '../../types';
 
-  const imageModules = import.meta.glob<PictureMetadata>('../../assets/gallery/*.{jpg,jpeg,png}', {
+  const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
     eager: true,
-    query: 'as=picture&format=avif;webp;jpg&width=400;800',
+    query: {
+      enhanced: true,
+    },
   });
 
   const photos: PictureMetadataTrackLoading[] = Object.entries(imageModules)
@@ -62,7 +64,7 @@
   }
 
   function startAutoCycle(): void {
-    intervalId = window.setInterval(nextSlide, 6000);
+    intervalId = window.setInterval(nextSlide, 4000);
   }
 
   function restartAutoCycleTimeout(): void {
@@ -93,18 +95,14 @@
   <div class="header-row">
     <h2>Photos</h2>
     <div class="controls">
-      <button onclick={manualPrev} aria-label="Previous photos" title="Previous">
-        &larr;
-      </button>
-      <button onclick={manualNext} aria-label="Next photos" title="Next">
-        &rarr;
-      </button>
+      <button onclick={manualPrev} aria-label="Previous photos" title="Previous"> &larr; </button>
+      <button onclick={manualNext} aria-label="Next photos" title="Next"> &rarr; </button>
     </div>
   </div>
 
   <div class="gallery-viewport">
     <div class="gallery-track" style:transform="translateX(-{offset}%)">
-      {#each photos as photo, i}
+      {#each photos as photo, i (photo.default.img.src)}
         <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
           <GalleryImage
             picture={photo}

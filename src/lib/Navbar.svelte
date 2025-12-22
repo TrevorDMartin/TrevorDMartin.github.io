@@ -1,6 +1,6 @@
 <script lang="ts">
   import ProgressBar from './ProgressBar.svelte';
-  import type { NavLink } from '../types';
+  import type { NavLink } from './types';
 
   const links: NavLink[] = [
     { label: 'Photos', href: '#photos' },
@@ -15,7 +15,7 @@
 <nav>
   <div class="nav-inner">
     <ul>
-      {#each links as link}
+      {#each links as link (link.label)}
         <li><a href={link.href}>{link.label}</a></li>
       {/each}
     </ul>

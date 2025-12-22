@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PictureMetadata } from '../../types';
+  import type { PictureMetadata } from '../types';
 
   interface $$Props {
     picture: PictureMetadata;
@@ -13,12 +13,9 @@
 
 <div class="gallery-item">
   <picture>
-    <source srcset={picture.sources.avif} type="image/avif" />
-    <source srcset={picture.sources.webp} type="image/webp" />
-    <img
-      src={picture.img.src}
-      width={picture.img.w}
-      height={picture.img.h}
+    <enhanced:img
+      class="gallery-image"
+      src={picture.default}
       {alt}
       onload={onLoad}
       loading="eager"
@@ -38,14 +35,14 @@
     /* display: flex; */
   }
 
-  .gallery-item img {
+  .gallery-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
 
-  .gallery-item img:hover {
+  .gallery-image:hover {
     transform: scale(1.05);
   }
 </style>

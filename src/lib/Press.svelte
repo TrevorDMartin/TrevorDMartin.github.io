@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { PressItem } from '../types';
+  import type { PressItem } from './types';
   export let quotes: PressItem[];
 </script>
 
 <section id="press">
   <h2>Press & Reviews</h2>
-  {#each quotes as item}
+  {#each quotes as item (item.outlet)}
     <div class="press-item">
       <div class="press-outlet">{item.outlet}</div>
       <div class="press-quote">"{item.quote}"</div>

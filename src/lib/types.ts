@@ -22,15 +22,17 @@ export interface SocialLink {
 
 // The structure vite-imagetools returns for a "picture"
 export interface PictureMetadata {
-  sources: {
-    avif: string;
-    webp: string;
-    jpg: string;
-  };
-  img: {
-    src: string;
-    w: number;
-    h: number;
+  default: {
+    sources: {
+      avif: string;
+      webp: string;
+      jpg: string;
+    };
+    img: {
+      src: string;
+      w: number;
+      h: number;
+    };
   };
 }
 

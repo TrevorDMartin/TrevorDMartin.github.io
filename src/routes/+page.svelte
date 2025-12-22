@@ -1,15 +1,14 @@
 <script lang="ts">
-  import './app.css';
-  import type { Show, PressItem } from './types';
+  import type { Show, PressItem } from '../lib/types';
 
-  import Header from './lib/Header.svelte';
-  import Navbar from './lib/Navbar.svelte';
-  import Gallery from './lib/gallery/Gallery.svelte';
-  import MusicVideo from './lib/MusicVideo.svelte';
-  import ShowList from './lib/ShowList.svelte';
-  import About from './lib/About.svelte';
-  import Press from './lib/Press.svelte';
-  import Footer from './lib/Footer.svelte';
+  import Header from '../lib/Header.svelte';
+  import Navbar from '../lib/Navbar.svelte';
+  import Gallery from '../lib/gallery/Gallery.svelte';
+  import MusicVideo from '../lib/MusicVideo.svelte';
+  import ShowList from '../lib/ShowList.svelte';
+  import About from '../lib/About.svelte';
+  import Press from '../lib/Press.svelte';
+  import Footer from '../lib/Footer.svelte';
 
   const upcomingShows: Show[] = [
     { date: 'March 15, 2025', venue: 'The Velvet Underground', location: 'Brooklyn, NY' },
