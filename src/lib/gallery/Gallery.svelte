@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PictureMetadata, PictureMetadataTrackLoading } from '../types';
   import GalleryImage from './GalleryImage.svelte';
+  import Lightbox from './Lightbox.svelte';
 
   const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
     eager: true,
@@ -19,6 +20,8 @@
   let currentIndex = $state(0);
   let itemsToShow = $state(3);
   let intervalId: number | null = $state(null);
+  let selectedPhoto = $state<PictureMetadataTrackLoading | null>(null);
+
   const offset = $derived(currentIndex * (100 / itemsToShow));
 
   function getNextIndex(index: number, step: number): number {
@@ -82,7 +85,7 @@
 
   $effect(() => {
     updateItemsToShow();
-    startAutoCycle();
+    if (!selectedPhoto) startAutoCycle();
     return () => {
       stopAutoCycle();
     };
@@ -104,19 +107,36 @@
     <div class="gallery-track" style:transform="translateX(-{offset}%)">
       {#each photos as photo, i (photo.default.img.src)}
         <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
-          <GalleryImage
-            picture={photo}
-            alt="Band onstage {i + 1}"
-            priority={i < itemsToShow}
-            onLoad={() => {
-              photos[i].isLoading = false;
+          <button
+            class="image-trigger"
+            onclick={() => {
+              stopAutoCycle();
+              selectedPhoto = photo;
             }}
-          />
+            aria-label="Enlarge photo {i + 1}"
+          >
+            <GalleryImage
+              picture={photo}
+              alt="Band onstage {i + 1}"
+              priority={i < itemsToShow}
+              onLoad={() => {
+                photos[i].isLoading = false;
+              }}
+            />
+          </button>
         </div>
       {/each}
     </div>
   </div>
 </section>
+
+<Lightbox
+  photo={selectedPhoto}
+  onClose={() => {
+    selectedPhoto = null;
+    startAutoCycle();
+  }}
+/>
 
 <style>
   .header-row {
@@ -139,11 +159,6 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 1.2rem;
-    transition: background 0.2s;
-  }
-
-  .controls button:hover {
-    background: #555;
   }
 
   .gallery-viewport {
@@ -155,11 +170,19 @@
   .gallery-track {
     display: flex;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    gap: 0;
   }
 
   .gallery-slide {
     padding: 0 10px;
     box-sizing: border-box;
+  }
+
+  .image-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+    display: block;
   }
 </style>

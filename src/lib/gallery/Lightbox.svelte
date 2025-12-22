@@ -1,115 +1,104 @@
 <script lang="ts">
-  import type { PictureMetadata } from '../../types';
+  import type { PictureMetadataTrackLoading } from '../types';
 
   interface Props {
-    picture: PictureMetadata;
-    onclose: () => void;
+    photo: PictureMetadataTrackLoading | null;
+    onClose: () => void;
   }
 
-  let { picture, onclose }: Props = $props();
+  let { photo, onClose }: Props = $props();
 
-  const handleKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') onclose();
-  };
+  function handleKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') onClose();
+  }
 
+  // Handle scroll lock and keyboard events via effect
   $effect(() => {
-    // Prevent scrolling the background page while lightbox is open
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = 'hidden';
+    if (photo) {
+      document.body.style.overflow = 'hidden';
+    }
 
     return () => {
-      document.body.style.overflow = originalStyle;
+      document.body.style.overflow = '';
     };
   });
-
-  function handleBackdropKeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onclose();
-    }
-  }
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div
-  class="lightbox-backdrop"
-  role="button"
-  tabindex="0"
-  aria-label="Close lightbox"
-  onclick={onclose}
-  onkeydown={handleBackdropKeydown}
->
+{#if photo}
   <div
-    class="lightbox-content"
-    role="dialog"
-    aria-modal="true"
-    onclick={(e) => e.stopPropagation()}
-    onkeydown={(e) => e.key === 'Enter' && e.stopPropagation()}
+    class="modal-backdrop"
+    role="button"
+    tabindex="-1"
+    onkeydown={(e) => e.key === 'Enter' && onClose()}
   >
-    <button class="close-btn" onclick={onclose} aria-label="Close">&times;</button>
-
-    <picture>
-      <source srcset={picture.sources.avif} type="image/avif" />
-      <source srcset={picture.sources.webp} type="image/webp" />
-      <img src={picture.img.src} alt="Full size view" loading="eager" />
-    </picture>
+    <div class="modal-content" role="presentation">
+      <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
+      <button class="full-image" onclick={onClose}>
+      <img
+        src={photo.default.img.src}
+        alt="Enlarged gallery photo: {photo.default.img.src}"
+      />
+      </button>
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
-  .lightbox-backdrop {
+  .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(8px);
-    border: none;
-    padding: 0;
-    cursor: zoom-out; /* Visual cue that clicking exits */
-    animation: fadeIn 0.2s ease-out;
+    padding: 1rem;
   }
 
-  .lightbox-content {
-    max-width: 90%;
-    max-height: 90%;
+  .modal-content {
     position: relative;
-    cursor: default;
+    max-width: 95vw;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  img {
+  .full-image {
     max-width: 100%;
-    max-height: 85vh;
-    display: block;
+    max-height: 90vh;
+    object-fit: contain;
     border-radius: 4px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    /* object-fit: contain; */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
   }
 
-  .close-btn {
+  .close-button {
     position: absolute;
-    top: -40px;
+    top: -50px;
     right: 0;
     background: none;
     border: none;
     color: white;
-    font-size: 2.5rem;
+    font-size: 3rem;
     cursor: pointer;
     line-height: 1;
+    padding: 10px;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
+  /* Desktop adjustments */
+  @media (min-width: 1024px) {
+    .close-button {
+      top: -20px;
+      right: -60px;
     }
-    to {
-      opacity: 1;
+    .modal-content {
+      max-width: 85vw;
     }
   }
 </style>
