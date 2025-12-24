@@ -6,19 +6,22 @@
     alt: string;
     priority?: boolean;
     onLoad?: () => void;
+    onError?: () => void;
   }
 
-  let { picture, alt, priority = false, onLoad }: $$Props = $props();
+  let { picture, alt, priority = false, onLoad, onError }: $$Props = $props();
 </script>
 
 <div class="gallery-item">
   <enhanced:img
-    class="gallery-image"
     src={picture.default}
+    class="gallery-image"
     {alt}
     onload={onLoad}
+    onerror={onError}
     loading="eager"
     fetchpriority={priority ? 'high' : 'low'}
+    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
   />
 </div>
 

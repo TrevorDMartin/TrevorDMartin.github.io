@@ -10,12 +10,14 @@
     },
   });
 
-  const photos: PictureMetadataTrackLoading[] = Object.entries(imageModules)
-    .sort(([picturePathA], [picturePathB]) => picturePathA.localeCompare(picturePathB))
-    .map(([_, pictureMetadata]) => ({
-      ...pictureMetadata,
-      isLoading: true,
-    }));
+  const photos: PictureMetadataTrackLoading[] = $state<PictureMetadataTrackLoading[]>(
+    Object.entries(imageModules)
+      .sort(([picturePathA], [picturePathB]) => picturePathA.localeCompare(picturePathB))
+      .map(([_, pictureMetadata]) => ({
+        ...pictureMetadata,
+        isLoading: true,
+      }))
+  );
 
   let currentIndex = $state(0);
   let itemsToShow = $state(3);
@@ -24,7 +26,7 @@
 
   let touchStartX = 0;
   let touchEndX = 0;
-  const SWIPE_THRESHOLD = 50;
+  const SWIPE_THRESHOLD = 75;
 
   function handleTouchStart(e: TouchEvent): void {
     touchStartX = e.changedTouches[0].screenX;
@@ -173,6 +175,9 @@
               alt="Band onstage {i + 1}"
               priority={i < itemsToShow}
               onLoad={() => {
+                photos[i].isLoading = false;
+              }}
+              onError={() => {
                 photos[i].isLoading = false;
               }}
             />
