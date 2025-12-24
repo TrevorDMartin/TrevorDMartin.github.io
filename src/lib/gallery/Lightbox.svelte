@@ -26,17 +26,17 @@
 <svelte:window onkeydown={handleKeydown} />
 
 {#if photo}
-  <div class="modal-backdrop">
-    <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
+  <button class="modal-backdrop" onclick={onClose}>
+    <div class="close-button" aria-label="Close modal"> &times; </div>
 
-    <button class="modal-content" onclick={onClose}>
+    <div class="modal-content">
       <img
         src={photo.default.img.src}
         alt="Enlarged gallery photo: {photo.default.img.src}"
         class="full-image"
       />
-    </button>
-  </div>
+    </div>
+  </button>
 {/if}
 
 <style>
@@ -53,7 +53,7 @@
     align-items: flex-start;
     z-index: 1000;
     padding: 60px 1rem 2rem 1rem;
-    pointer-events: none;
+    cursor: pointer;
   }
 
   .modal-content {
@@ -82,13 +82,11 @@
     border: none;
     color: white;
     font-size: 2.5rem;
-    cursor: pointer;
     line-height: 1;
     padding: 5px 15px;
     border-radius: 50%;
     z-index: 1001;
     transition: background 0.2s;
-    cursor: pointer;
   }
 
   .close-button:hover {
