@@ -19,7 +19,7 @@
 
   let currentIndex = $state(0);
   let itemsToShow = $state(3);
-  let intervalId: number | null = $state(null);
+  let intervalId: NodeJS.Timeout | undefined = undefined;
   let selectedPhoto = $state<PictureMetadataTrackLoading | null>(null);
 
   const offset = $derived(currentIndex * (100 / itemsToShow));
@@ -62,12 +62,16 @@
   function stopAutoCycle(): void {
     if (intervalId) {
       clearInterval(intervalId);
-      intervalId = null;
+      intervalId = undefined;
     }
   }
 
   function startAutoCycle(): void {
-    intervalId = window.setInterval(nextSlide, 4000);
+    if (intervalId) {
+      return;
+    }
+    clearInterval(intervalId);
+    intervalId = setInterval(nextSlide, 4000);
   }
 
   function restartAutoCycleTimeout(): void {
