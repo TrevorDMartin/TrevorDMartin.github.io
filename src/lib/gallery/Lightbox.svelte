@@ -86,6 +86,7 @@
         src={picture.default}
         sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
         class="full-image"
+        alt={picture.default.img.src}
       />
     </button>
 
