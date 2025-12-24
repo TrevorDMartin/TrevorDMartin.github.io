@@ -55,20 +55,29 @@
 
 {#if picture}
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div
-    class="modal-backdrop"
-    ontouchstart={handleTouchStart}
-    ontouchend={handleTouchEnd}
-  >
+  <div class="modal-backdrop" ontouchstart={handleTouchStart} ontouchend={handleTouchEnd}>
     <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
 
     <button
       class="nav-arrow nav-prev"
-      onclick={(e) => { e.stopPropagation(); onPrev(); }}
+      onclick={(e) => {
+        e.stopPropagation();
+        onPrev();
+      }}
       aria-label="Previous photo"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m15 18-6-6 6-6"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m15 18-6-6 6-6" />
       </svg>
     </button>
 
@@ -82,11 +91,24 @@
 
     <button
       class="nav-arrow nav-next"
-      onclick={(e) => { e.stopPropagation(); onNext(); }}
+      onclick={(e) => {
+        e.stopPropagation();
+        onNext();
+      }}
       aria-label="Next photo"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m9 18 6-6-6-6" />
       </svg>
     </button>
   </div>
@@ -179,7 +201,9 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s, background 0.2s;
+    transition:
+      opacity 0.3s,
+      background 0.2s;
   }
 
   .modal-backdrop:hover .nav-arrow {

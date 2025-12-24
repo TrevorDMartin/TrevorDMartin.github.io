@@ -125,20 +125,36 @@
 <section id="photos">
   <h2>Photos</h2>
 
-  <div
-    class="gallery-viewport"
-    ontouchstart={handleTouchStart}
-    ontouchend={handleTouchEnd}
-  >
+  <div class="gallery-viewport" ontouchstart={handleTouchStart} ontouchend={handleTouchEnd}>
     <button class="nav-arrow nav-prev" onclick={manualPrev} aria-label="Previous photos">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m15 18-6-6 6-6"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m15 18-6-6 6-6" />
       </svg>
     </button>
 
     <button class="nav-arrow nav-next" onclick={manualNext} aria-label="Next photos">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m9 18 6-6-6-6" />
       </svg>
     </button>
     <div class="gallery-track" style:transform="translateX(-{offset}%)">
@@ -174,12 +190,16 @@
     startAutoCycle();
   }}
   onPrev={() => {
-    const currentIdx = photos.findIndex((p) => p.default.img.src === selectedPhoto?.default.img.src);
+    const currentIdx = photos.findIndex(
+      (p) => p.default.img.src === selectedPhoto?.default.img.src
+    );
     const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
     selectedPhoto = photos[prevIdx];
   }}
   onNext={() => {
-    const currentIdx = photos.findIndex((p) => p.default.img.src === selectedPhoto?.default.img.src);
+    const currentIdx = photos.findIndex(
+      (p) => p.default.img.src === selectedPhoto?.default.img.src
+    );
     const nextIdx = (currentIdx + 1) % photos.length;
     selectedPhoto = photos[nextIdx];
   }}
@@ -212,7 +232,9 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s, background 0.2s;
+    transition:
+      opacity 0.3s,
+      background 0.2s;
   }
 
   .nav-arrow:hover {
