@@ -135,7 +135,7 @@
 </section>
 
 <Lightbox
-  photo={selectedPhoto}
+  picture={selectedPhoto}
   onClose={() => {
     selectedPhoto = null;
     startAutoCycle();

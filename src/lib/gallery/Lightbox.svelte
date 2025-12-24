@@ -2,18 +2,18 @@
   import type { PictureMetadataTrackLoading } from '../types';
 
   interface Props {
-    photo: PictureMetadataTrackLoading | null;
+    picture: PictureMetadataTrackLoading | null;
     onClose: () => void;
   }
 
-  let { photo, onClose }: Props = $props();
+  let { picture, onClose }: Props = $props();
 
   function handleKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') onClose();
   }
 
   $effect(() => {
-    if (photo) {
+    if (picture) {
       document.body.style.overflow = 'hidden';
     }
 
@@ -25,14 +25,15 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-{#if photo}
+{#if picture}
   <button class="modal-backdrop" onclick={onClose}>
     <div class="close-button" aria-label="Close modal"> &times; </div>
-
     <div class="modal-content">
-      <img
-        src={photo.default.img.src}
-        alt="Enlarged gallery photo: {photo.default.img.src}"
+      <!-- src={picture.default.img.src + "?w=1280;640;400"} -->
+      <enhanced:img
+        src={picture.default}
+        sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
+        alt="Enlarged gallery photo: {picture.default.img.src}"
         class="full-image"
       />
     </div>
@@ -58,20 +59,28 @@
 
   .modal-content {
     position: relative;
-    width: 100%;
-    max-width: 1200px; /* Capping the maximum width of the image */
+    width: 90vw;
+    max-width: 1200px;
+    aspect-ratio: 16 / 9;
+    max-height: 80vh;
+    overflow: hidden;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background: transparent;
     display: flex;
+    align-items: center;
     justify-content: center;
-    cursor: pointer;
   }
 
   .full-image {
-    width: 100%;
-    height: auto;
-    max-width: 1200px; /* Ensures consistent max size */
     display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
   }
 
   .close-button {
@@ -79,7 +88,6 @@
     top: 10px;
     right: 10px;
     background: rgba(0, 0, 0, 0.5);
-    border: none;
     color: white;
     font-size: 2.5rem;
     line-height: 1;
@@ -97,7 +105,11 @@
   @media (min-width: 1024px) {
     .modal-backdrop {
       padding-top: 40px;
-      align-items: center; /* Center vertically on desktop if image fits */
+      align-items: center;
+    }
+
+    .modal-content {
+      width: 80vw;
     }
 
     .close-button {

@@ -12,16 +12,14 @@
 </script>
 
 <div class="gallery-item">
-  <picture>
-    <enhanced:img
-      class="gallery-image"
-      src={picture.default}
-      {alt}
-      onload={onLoad}
-      loading="eager"
-      fetchpriority={priority ? 'high' : 'low'}
-    />
-  </picture>
+  <enhanced:img
+    class="gallery-image"
+    src={picture.default}
+    {alt}
+    onload={onLoad}
+    loading="eager"
+    fetchpriority={priority ? 'high' : 'low'}
+  />
 </div>
 
 <style>
