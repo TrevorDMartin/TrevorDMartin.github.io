@@ -51,19 +51,16 @@
     overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     z-index: 1000;
-    padding: 60px 1rem 2rem 1rem;
+    padding: 1rem;
     cursor: pointer;
   }
 
   .modal-content {
     position: relative;
-    width: 90vw;
-    max-width: 1200px;
-    aspect-ratio: 16 / 9;
-    max-height: 80vh;
-    overflow: hidden;
+    max-width: min(95vw, 1200px);
+    max-height: 85vh;
     border-radius: 8px;
     box-sizing: border-box;
     background: transparent;
@@ -103,13 +100,8 @@
 
   /* Desktop adjustments */
   @media (min-width: 1024px) {
-    .modal-backdrop {
-      padding-top: 40px;
-      align-items: center;
-    }
-
     .modal-content {
-      width: 80vw;
+      max-width: min(80vw, 1200px);
     }
 
     .close-button {
