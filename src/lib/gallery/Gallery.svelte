@@ -22,6 +22,30 @@
   let intervalId: NodeJS.Timeout | undefined = undefined;
   let selectedPhoto = $state<PictureMetadataTrackLoading | null>(null);
 
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const SWIPE_THRESHOLD = 50;
+
+  function handleTouchStart(e: TouchEvent): void {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+
+  function handleTouchEnd(e: TouchEvent): void {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }
+
+  function handleSwipe(): void {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff > 0) {
+        manualNext();
+      } else {
+        manualPrev();
+      }
+    }
+  }
+
   const offset = $derived(currentIndex * (100 / itemsToShow));
 
   function getNextIndex(index: number, step: number): number {
@@ -99,15 +123,24 @@
 <svelte:window onresize={updateItemsToShow} />
 
 <section id="photos">
-  <div class="header-row">
-    <h2>Photos</h2>
-    <div class="controls">
-      <button onclick={manualPrev} aria-label="Previous photos" title="Previous"> &larr; </button>
-      <button onclick={manualNext} aria-label="Next photos" title="Next"> &rarr; </button>
-    </div>
-  </div>
+  <h2>Photos</h2>
 
-  <div class="gallery-viewport">
+  <div
+    class="gallery-viewport"
+    ontouchstart={handleTouchStart}
+    ontouchend={handleTouchEnd}
+  >
+    <button class="nav-arrow nav-prev" onclick={manualPrev} aria-label="Previous photos">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <button class="nav-arrow nav-next" onclick={manualNext} aria-label="Next photos">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m9 18 6-6-6-6"/>
+      </svg>
+    </button>
     <div class="gallery-track" style:transform="translateX(-{offset}%)">
       {#each photos as photo, i (photo.default.img.src)}
         <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
@@ -140,35 +173,64 @@
     selectedPhoto = null;
     startAutoCycle();
   }}
+  onPrev={() => {
+    const currentIdx = photos.findIndex((p) => p.default.img.src === selectedPhoto?.default.img.src);
+    const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
+    selectedPhoto = photos[prevIdx];
+  }}
+  onNext={() => {
+    const currentIdx = photos.findIndex((p) => p.default.img.src === selectedPhoto?.default.img.src);
+    const nextIdx = (currentIdx + 1) % photos.length;
+    selectedPhoto = photos[nextIdx];
+  }}
 />
 
 <style>
-  .header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .controls {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .controls button {
-    background: #333;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.2rem;
-  }
-
   .gallery-viewport {
     width: 100%;
     overflow: hidden;
     position: relative;
+  }
+
+  .gallery-viewport:hover .nav-arrow {
+    opacity: 1;
+  }
+
+  .nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s, background 0.2s;
+  }
+
+  .nav-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .nav-prev {
+    left: 1rem;
+  }
+
+  .nav-next {
+    right: 1rem;
+  }
+
+  @media (max-width: 1023px) {
+    .nav-arrow {
+      display: none;
+    }
   }
 
   .gallery-track {
