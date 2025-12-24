@@ -15,13 +15,13 @@
 <div class="gallery-item">
   <enhanced:img
     src={picture.default}
+    sizes="(min-width: 1024px) 400px, (min-width: 640px) 512px, 640px"
     class="gallery-image"
     {alt}
     onload={onLoad}
     onerror={onError}
     loading="eager"
     fetchpriority={priority ? 'high' : 'low'}
-    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
   />
 </div>
 

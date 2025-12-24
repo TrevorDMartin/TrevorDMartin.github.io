@@ -1,4 +1,5 @@
 <script lang="ts">
+  import HandleSwipe from '$lib/actions/HandleSwipe.svelte';
   import type { PictureMetadataTrackLoading } from '../types';
 
   interface Props {
@@ -10,29 +11,6 @@
 
   let { picture, onClose, onPrev, onNext }: Props = $props();
 
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const SWIPE_THRESHOLD = 50;
-
-  function handleTouchStart(e: TouchEvent): void {
-    touchStartX = e.changedTouches[0].screenX;
-  }
-
-  function handleTouchEnd(e: TouchEvent): void {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }
-
-  function handleSwipe(): void {
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff > 0) {
-        onNext();
-      } else {
-        onPrev();
-      }
-    }
-  }
 
   function handleKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') onClose();
@@ -54,9 +32,9 @@
 <svelte:window onkeydown={handleKeydown} />
 
 {#if picture}
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="modal-backdrop" ontouchstart={handleTouchStart} ontouchend={handleTouchEnd}>
-    <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
+  <HandleSwipe threshold={75} onSwipeLeft={onPrev} onSwipeRight={onNext}>
+    <div class="modal-backdrop">
+      <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
 
     <button
       class="nav-arrow nav-prev"
@@ -81,38 +59,39 @@
       </svg>
     </button>
 
-    <button class="modal-content" aria-label="Photo" onclick={onClose}>
-      <enhanced:img
-        src={picture.default}
-        sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
-        class="full-image"
-        alt={picture.default.img.src}
-      />
-    </button>
+      <button class="modal-content" aria-label="Photo" onclick={onClose}>
+        <enhanced:img
+          src={picture.default}
+          sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
+          class="full-image"
+          alt={picture.default.img.src}
+        />
+      </button>
 
-    <button
-      class="nav-arrow nav-next"
-      onclick={(e) => {
-        e.stopPropagation();
-        onNext();
-      }}
-      aria-label="Next photo"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+      <button
+        class="nav-arrow nav-next"
+        onclick={(e) => {
+          e.stopPropagation();
+          onNext();
+        }}
+        aria-label="Next photo"
       >
-        <path d="m9 18 6-6-6-6" />
-      </svg>
-    </button>
-  </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+    </div>
+  </HandleSwipe>
 {/if}
 
 <style>

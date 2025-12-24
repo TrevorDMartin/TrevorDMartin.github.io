@@ -2,10 +2,12 @@
   import type { PictureMetadata, PictureMetadataTrackLoading } from '../types';
   import GalleryImage from './GalleryImage.svelte';
   import Lightbox from './Lightbox.svelte';
+  import HandleSwipe from '../actions/HandleSwipe.svelte';
 
   const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
     eager: true,
     query: {
+      w: '400:512;640;1280',
       enhanced: true,
     },
   });
@@ -23,30 +25,6 @@
   let itemsToShow = $state(3);
   let intervalId: NodeJS.Timeout | undefined = undefined;
   let selectedPhoto = $state<PictureMetadataTrackLoading | null>(null);
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const SWIPE_THRESHOLD = 75;
-
-  function handleTouchStart(e: TouchEvent): void {
-    touchStartX = e.changedTouches[0].screenX;
-  }
-
-  function handleTouchEnd(e: TouchEvent): void {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }
-
-  function handleSwipe(): void {
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff > 0) {
-        manualNext();
-      } else {
-        manualPrev();
-      }
-    }
-  }
 
   const offset = $derived(currentIndex * (100 / itemsToShow));
 
@@ -127,65 +105,67 @@
 <section id="photos">
   <h2>Photos</h2>
 
-  <div class="gallery-viewport" ontouchstart={handleTouchStart} ontouchend={handleTouchEnd}>
-    <button class="nav-arrow nav-prev" onclick={manualPrev} aria-label="Previous photos">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m15 18-6-6 6-6" />
-      </svg>
-    </button>
+  <HandleSwipe threshold={75} onSwipeLeft={manualPrev} onSwipeRight={manualNext}>
+    <div class="gallery-viewport" >
+      <button class="nav-arrow nav-prev" onclick={manualPrev} aria-label="Previous photos">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
 
-    <button class="nav-arrow nav-next" onclick={manualNext} aria-label="Next photos">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m9 18 6-6-6-6" />
-      </svg>
-    </button>
-    <div class="gallery-track" style:transform="translateX(-{offset}%)">
-      {#each photos as photo, i (photo.default.img.src)}
-        <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
-          <button
-            class="image-trigger"
-            onclick={() => {
-              stopAutoCycle();
-              selectedPhoto = photo;
-            }}
-            aria-label="Enlarge photo {i + 1}"
-          >
-            <GalleryImage
-              picture={photo}
-              alt="Band onstage {i + 1}"
-              priority={i < itemsToShow}
-              onLoad={() => {
-                photos[i].isLoading = false;
+      <button class="nav-arrow nav-next" onclick={manualNext} aria-label="Next photos">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+      <div class="gallery-track" style:transform="translateX(-{offset}%)">
+        {#each photos as photo, i (photo.default.img.src)}
+          <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
+            <button
+              class="image-trigger"
+              onclick={() => {
+                stopAutoCycle();
+                selectedPhoto = photo;
               }}
-              onError={() => {
-                photos[i].isLoading = false;
-              }}
-            />
-          </button>
-        </div>
-      {/each}
+              aria-label="Enlarge photo {i + 1}"
+            >
+              <GalleryImage
+                picture={photo}
+                alt="Band onstage {i + 1}"
+                priority={i < itemsToShow}
+                onLoad={() => {
+                  photos[i].isLoading = false;
+                }}
+                onError={() => {
+                  photos[i].isLoading = false;
+                }}
+              />
+            </button>
+          </div>
+        {/each}
+      </div>
     </div>
-  </div>
+  </HandleSwipe>
 </section>
 
 <Lightbox
