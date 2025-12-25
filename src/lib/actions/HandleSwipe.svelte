@@ -6,9 +6,16 @@
     threshold?: number;
     onSwipeLeft: () => void;
     onSwipeRight: () => void;
+    class: string;
   }
 
-  const { children, threshold = 100, onSwipeLeft, onSwipeRight }: Props = $props();
+  const {
+    children,
+    threshold = 100,
+    onSwipeLeft,
+    onSwipeRight,
+    class: classValue,
+  }: Props = $props();
 
   let touchStartX = 0;
   let touchEndX = 0;
@@ -34,6 +41,6 @@
   }
 </script>
 
-<div ontouchstart={handleTouchStart} ontouchend={handleTouchEnd}>
+<div ontouchstart={handleTouchStart} ontouchend={handleTouchEnd} class={classValue}>
   {@render children()}
 </div>

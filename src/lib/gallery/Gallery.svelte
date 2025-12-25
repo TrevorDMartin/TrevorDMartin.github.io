@@ -30,7 +30,13 @@
   const offset = $derived(currentIndex * (100 / itemsToShow));
 
   function getNextIndex(index: number, step: number): number {
-    return (index + step) % photos.length;
+    const next = index + step;
+
+    if (index !== 0 && index >= photos.length - step) {
+      return 0;
+    }
+
+    return next;
   }
 
   function checkWindowLoaded(index: number): boolean {
@@ -106,47 +112,50 @@
 <section id="photos">
   <h2>Photos</h2>
 
-  <HandleSwipe threshold={75} onSwipeLeft={manualPrev} onSwipeRight={manualNext}>
-    <div class="gallery-viewport">
-      <NavArrow
-        direction="PREV"
-        onclick={manualPrev}
-        ariaLabel="Previous photos"
-        class="gallery-nav-arrow gallery-nav-prev"
-      />
-      <NavArrow
-        direction="NEXT"
-        onclick={manualNext}
-        ariaLabel="Next photos"
-        class="gallery-nav-arrow gallery-nav-next"
-      />
+  <HandleSwipe
+    threshold={75}
+    onSwipeLeft={manualPrev}
+    onSwipeRight={manualNext}
+    class="gallery-viewport"
+  >
+    <NavArrow
+      direction="PREV"
+      onclick={manualPrev}
+      ariaLabel="Previous photos"
+      class="gallery-nav-arrow gallery-nav-prev"
+    />
+    <NavArrow
+      direction="NEXT"
+      onclick={manualNext}
+      ariaLabel="Next photos"
+      class="gallery-nav-arrow gallery-nav-next"
+    />
 
-      <div class="gallery-track" style:transform="translateX(-{offset}%)">
-        {#each photos as photo, i (photo.default.img.src)}
-          <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
-            <button
-              class="image-trigger"
-              onclick={() => {
-                stopAutoCycle();
-                selectedPhoto = photo;
+    <div class="gallery-track" style:transform="translateX(-{offset}%)">
+      {#each photos as photo, i (photo.default.img.src)}
+        <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
+          <button
+            class="image-trigger"
+            onclick={() => {
+              stopAutoCycle();
+              selectedPhoto = photo;
+            }}
+            aria-label="Enlarge photo {i + 1}"
+          >
+            <GalleryImage
+              picture={photo}
+              alt="Band onstage {i + 1}"
+              priority={i < itemsToShow}
+              onLoad={() => {
+                photos[i].isLoading = false;
               }}
-              aria-label="Enlarge photo {i + 1}"
-            >
-              <GalleryImage
-                picture={photo}
-                alt="Band onstage {i + 1}"
-                priority={i < itemsToShow}
-                onLoad={() => {
-                  photos[i].isLoading = false;
-                }}
-                onError={() => {
-                  photos[i].isLoading = false;
-                }}
-              />
-            </button>
-          </div>
-        {/each}
-      </div>
+              onError={() => {
+                photos[i].isLoading = false;
+              }}
+            />
+          </button>
+        </div>
+      {/each}
     </div>
   </HandleSwipe>
 </section>
@@ -174,13 +183,13 @@
 />
 
 <style>
-  .gallery-viewport {
+  :global(.gallery-viewport) {
     width: 100%;
     overflow: hidden;
     position: relative;
   }
 
-  .gallery-viewport:hover :global(.gallery-nav-arrow) {
+  :global(.gallery-viewport:hover) :global(.gallery-nav-arrow) {
     opacity: 1;
   }
 
