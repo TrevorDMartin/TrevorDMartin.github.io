@@ -6,6 +6,9 @@ import { enhancedImages } from '@sveltejs/enhanced-img';
 
 export default defineConfig({
   plugins: [enhancedImages(), sveltekit(), devtoolsJson()],
+  build: {
+    sourcemap: true,
+  },
 
   test: {
     expect: { requireAssertions: true },

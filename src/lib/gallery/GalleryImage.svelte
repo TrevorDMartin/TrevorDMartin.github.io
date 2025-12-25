@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PictureMetadata } from '../types';
 
-  interface $$Props {
+  interface Props {
     picture: PictureMetadata;
     alt: string;
     priority?: boolean;
@@ -9,7 +9,7 @@
     onError?: () => void;
   }
 
-  let { picture, alt, priority = false, onLoad, onError }: $$Props = $props();
+  let { picture, alt, priority = false, onLoad, onError }: Props = $props();
 </script>
 
 <div class="gallery-item">
