@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Show } from './types';
-  export let upcoming: Show[];
-  export let past: Show[];
+  import BodySection from '../BodySection.svelte';
+  import { getSortedShows } from './showsUtil';
 
+  const { upcoming, past } = getSortedShows();
   let showUpcoming: boolean = true;
 </script>
 
-<section id="shows">
+<BodySection id="shows">
   <h2>Shows</h2>
   <div class="toggle-group">
     <button class:active={showUpcoming} on:click={() => (showUpcoming = true)}> Upcoming </button>
@@ -27,7 +27,7 @@
       </div>
     {/each}
   </div>
-</section>
+</BodySection>
 
 <style>
   .toggle-group {

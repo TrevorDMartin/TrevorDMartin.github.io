@@ -1,4 +1,8 @@
-<section id="videos">
+<script lang="ts">
+  import BodySection from '$lib/BodySection.svelte';
+</script>
+
+<BodySection id="videos">
   <h2>Videos</h2>
   <div class="video-grid">
     <div class="aspect-ratio-box">
@@ -8,7 +12,7 @@
       <div class="content">Live at The Bowery</div>
     </div>
   </div>
-</section>
+</BodySection>
 
 <style>
   .video-grid {

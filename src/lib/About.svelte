@@ -1,4 +1,8 @@
-<section id="about">
+<script lang="ts">
+  import BodySection from './BodySection.svelte';
+</script>
+
+<BodySection id="about">
   <h2>About Cassettiquette</h2>
   <div class="bio">
     <p>
@@ -9,7 +13,7 @@
       polished sensibilities.
     </p>
   </div>
-</section>
+</BodySection>
 
 <style>
   .bio {

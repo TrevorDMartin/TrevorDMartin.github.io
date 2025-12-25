@@ -6,7 +6,7 @@
     threshold?: number;
     onSwipeLeft: () => void;
     onSwipeRight: () => void;
-    class: string;
+    class?: string;
   }
 
   const {

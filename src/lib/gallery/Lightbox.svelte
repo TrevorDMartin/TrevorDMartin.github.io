@@ -158,14 +158,7 @@
     right: 1rem;
   }
 
-  @media (max-width: 1023px) {
-    :global(.lightbox-nav-arrow) {
-      display: none;
-    }
-  }
-
-  /* Desktop adjustments */
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .modal-content {
       max-width: min(80vw, 1200px);
     }

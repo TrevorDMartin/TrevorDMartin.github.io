@@ -1,9 +1,10 @@
 <script lang="ts">
-  import type { PictureMetadata, PictureMetadataTrackLoading } from '../types';
+  import type { PictureMetadata, PictureMetadataTrackLoading } from '$lib/types';
   import GalleryImage from './GalleryImage.svelte';
   import Lightbox from './Lightbox.svelte';
   import NavArrow from './NavArrow.svelte';
-  import HandleSwipe from '../actions/HandleSwipe.svelte';
+  import HandleSwipe from '$lib/actions/HandleSwipe.svelte';
+  import BodySection from '$lib/BodySection.svelte';
 
   const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
     eager: true,
@@ -109,7 +110,7 @@
 
 <svelte:window onresize={updateItemsToShow} />
 
-<section id="photos">
+<BodySection id="photos">
   <h2>Photos</h2>
 
   <HandleSwipe
@@ -158,7 +159,7 @@
       {/each}
     </div>
   </HandleSwipe>
-</section>
+</BodySection>
 
 <Lightbox
   picture={selectedPhoto}
@@ -183,6 +184,9 @@
 />
 
 <style>
+  /* border: 1px solid #8b7ba8; */
+  /* background-color: #4b3c6b; */
+
   :global(.gallery-viewport) {
     width: 100%;
     overflow: hidden;

@@ -1,9 +1,10 @@
 <script lang="ts">
+  import BodySection from './BodySection.svelte';
   import type { PressItem } from './types';
   export let quotes: PressItem[];
 </script>
 
-<section id="press">
+<BodySection id="press">
   <h2>Press & Reviews</h2>
   {#each quotes as item (item.outlet)}
     <div class="press-item">
@@ -11,7 +12,7 @@
       <div class="press-quote">"{item.quote}"</div>
     </div>
   {/each}
-</section>
+</BodySection>
 
 <style>
   .press-item {

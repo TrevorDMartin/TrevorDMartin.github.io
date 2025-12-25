@@ -16,6 +16,7 @@
   <div class="nav-inner">
     <ul>
       {#each links as link (link.label)}
+        <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
         <li><a href={link.href}>{link.label}</a></li>
       {/each}
     </ul>
@@ -27,38 +28,61 @@
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     position: sticky;
-    top: 0; /* Sits immediately under the fixed progress bar */
+    top: 0;
     z-index: 1000;
     border-bottom: 1px solid #8b7ba8;
   }
 
   .nav-inner {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    display: flex;
+    justify-content: center;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar {
+    display: none;
   }
 
   ul {
     display: flex;
+    justify-content: center;
     list-style: none;
-    padding: 0.8rem 1rem;
-    gap: 1.5rem;
+    margin: 0;
+    padding: 0.7rem 1rem;
+    gap: 1rem;
   }
 
   a {
     color: #c4b5e0;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     white-space: nowrap;
+    letter-spacing: 0.02rem;
+    font-weight: 500;
   }
 
-  @media (min-width: 768px) {
+  /* Tablet and Desktop scaling */
+  @media (min-width: 512px) {
     ul {
-      justify-content: center;
+      gap: 2rem;
       padding: 1rem;
     }
     a {
       font-size: 1rem;
+      letter-spacing: 0.05rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    ul {
+      gap: 4rem;
+      padding: 1.5rem 1.5rem;
+    }
+    a {
+      font-size: 1.5rem;
+      letter-spacing: 0.1rem;
     }
   }
 </style>
