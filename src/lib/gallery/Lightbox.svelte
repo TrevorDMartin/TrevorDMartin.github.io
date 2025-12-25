@@ -1,6 +1,7 @@
 <script lang="ts">
   import HandleSwipe from '$lib/actions/HandleSwipe.svelte';
   import type { PictureMetadataTrackLoading } from '../types';
+  import NavArrow from './NavArrow.svelte';
 
   interface Props {
     picture: PictureMetadataTrackLoading | null;
@@ -10,7 +11,6 @@
   }
 
   let { picture, onClose, onPrev, onNext }: Props = $props();
-
 
   function handleKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') onClose();
@@ -36,28 +36,12 @@
     <div class="modal-backdrop">
       <button class="close-button" onclick={onClose} aria-label="Close modal"> &times; </button>
 
-    <button
-      class="nav-arrow nav-prev"
-      onclick={(e) => {
-        e.stopPropagation();
-        onPrev();
-      }}
-      aria-label="Previous photo"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m15 18-6-6 6-6" />
-      </svg>
-    </button>
+      <NavArrow
+        direction="PREV"
+        onclick={onPrev}
+        ariaLabel="Previous photo"
+        class="lightbox-nav-arrow lightbox-nav-prev"
+      />
 
       <button class="modal-content" aria-label="Photo" onclick={onClose}>
         <enhanced:img
@@ -68,28 +52,12 @@
         />
       </button>
 
-      <button
-        class="nav-arrow nav-next"
-        onclick={(e) => {
-          e.stopPropagation();
-          onNext();
-        }}
-        aria-label="Next photo"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="m9 18 6-6-6-6" />
-        </svg>
-      </button>
+      <NavArrow
+        direction="NEXT"
+        onclick={onNext}
+        ariaLabel="Next photo"
+        class="lightbox-nav-arrow lightbox-nav-next"
+      />
     </div>
   </HandleSwipe>
 {/if}
@@ -165,45 +133,33 @@
     background: rgba(0, 0, 0, 0.5);
   }
 
-  .nav-arrow {
+  :global(.lightbox-nav-arrow) {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1001;
     background: rgba(0, 0, 0, 0.6);
     color: white;
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition:
-      opacity 0.3s,
-      background 0.2s;
   }
 
-  .modal-backdrop:hover .nav-arrow {
+  .modal-backdrop:hover :global(.nav-arrow) {
     opacity: 1;
   }
 
-  .nav-arrow:hover {
+  :global(.lightbox-nav-arrow:hover) {
     background: rgba(255, 255, 255, 0.2);
   }
 
-  .nav-prev {
+  :global(.lightbox-nav-prev) {
     left: 1rem;
   }
 
-  .nav-next {
+  :global(.lightbox-nav-next) {
     right: 1rem;
   }
 
   @media (max-width: 1023px) {
-    .nav-arrow {
+    :global(.lightbox-nav-arrow) {
       display: none;
     }
   }

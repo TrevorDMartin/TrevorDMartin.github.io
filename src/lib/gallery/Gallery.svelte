@@ -2,6 +2,7 @@
   import type { PictureMetadata, PictureMetadataTrackLoading } from '../types';
   import GalleryImage from './GalleryImage.svelte';
   import Lightbox from './Lightbox.svelte';
+  import NavArrow from './NavArrow.svelte';
   import HandleSwipe from '../actions/HandleSwipe.svelte';
 
   const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
@@ -106,38 +107,20 @@
   <h2>Photos</h2>
 
   <HandleSwipe threshold={75} onSwipeLeft={manualPrev} onSwipeRight={manualNext}>
-    <div class="gallery-viewport" >
-      <button class="nav-arrow nav-prev" onclick={manualPrev} aria-label="Previous photos">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="m15 18-6-6 6-6" />
-        </svg>
-      </button>
+    <div class="gallery-viewport">
+      <NavArrow
+        direction="PREV"
+        onclick={manualPrev}
+        ariaLabel="Previous photos"
+        class="gallery-nav-arrow gallery-nav-prev"
+      />
+      <NavArrow
+        direction="NEXT"
+        onclick={manualNext}
+        ariaLabel="Next photos"
+        class="gallery-nav-arrow gallery-nav-next"
+      />
 
-      <button class="nav-arrow nav-next" onclick={manualNext} aria-label="Next photos">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="m9 18 6-6-6-6" />
-        </svg>
-      </button>
       <div class="gallery-track" style:transform="translateX(-{offset}%)">
         {#each photos as photo, i (photo.default.img.src)}
           <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
@@ -197,47 +180,29 @@
     position: relative;
   }
 
-  .gallery-viewport:hover .nav-arrow {
+  .gallery-viewport:hover :global(.gallery-nav-arrow) {
     opacity: 1;
   }
 
-  .nav-arrow {
+  :global(.gallery-nav-arrow) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
     background: rgba(0, 0, 0, 0.6);
     color: white;
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition:
-      opacity 0.3s,
-      background 0.2s;
   }
 
-  .nav-arrow:hover {
+  :global(.gallery-nav-arrow:hover) {
     background: rgba(0, 0, 0, 0.8);
   }
 
-  .nav-prev {
+  :global(.gallery-nav-prev) {
     left: 1rem;
   }
 
-  .nav-next {
+  :global(.gallery-nav-next) {
     right: 1rem;
-  }
-
-  @media (max-width: 1023px) {
-    .nav-arrow {
-      display: none;
-    }
   }
 
   .gallery-track {
