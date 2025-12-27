@@ -60,6 +60,7 @@
   @media (min-width: 1024px) {
     .header-video {
       width: 65%;
+      max-height: 55vh;
     }
   }
 </style>

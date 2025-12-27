@@ -110,9 +110,7 @@
 
 <svelte:window onresize={updateItemsToShow} />
 
-<BodySection id="photos">
-  <h2>Photos</h2>
-
+<BodySection heading="Photos">
   <HandleSwipe
     threshold={75}
     onSwipeLeft={manualPrev}
@@ -184,9 +182,6 @@
 />
 
 <style>
-  /* border: 1px solid #8b7ba8; */
-  /* background-color: #4b3c6b; */
-
   :global(.gallery-viewport) {
     width: 100%;
     overflow: hidden;

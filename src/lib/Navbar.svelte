@@ -30,7 +30,7 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid #8b7ba8;
+    border-bottom: 1px solid var(--light-purple);
   }
 
   .nav-inner {
@@ -54,7 +54,7 @@
   }
 
   a {
-    color: #c4b5e0;
+    color: var(--light-purple);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 0.75rem;

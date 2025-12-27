@@ -1,11 +1,17 @@
 <script lang="ts">
   import BodySection from './BodySection.svelte';
   import type { PressItem } from './types';
-  export let quotes: PressItem[];
+
+  const quotes: PressItem[] = [
+    {
+      outlet: 'Indie Music Magazine',
+      quote: 'Cassettiquette delivers a fresh take on indie rock.',
+    },
+    { outlet: 'Sound & Vision Blog', quote: 'A band that understands the power of melody.' },
+  ];
 </script>
 
-<BodySection id="press">
-  <h2>Press & Reviews</h2>
+<BodySection heading="Press">
   {#each quotes as item (item.outlet)}
     <div class="press-item">
       <div class="press-outlet">{item.outlet}</div>

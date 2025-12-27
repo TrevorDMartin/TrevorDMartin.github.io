@@ -2,8 +2,7 @@
   import BodySection from '$lib/BodySection.svelte';
 </script>
 
-<BodySection id="videos">
-  <h2>Videos</h2>
+<BodySection heading="Videos">
   <div class="video-grid">
     <div class="aspect-ratio-box">
       <div class="content">Music Video</div>

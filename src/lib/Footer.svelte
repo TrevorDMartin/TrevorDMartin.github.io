@@ -16,14 +16,14 @@
     padding: 1rem;
     text-align: center;
     margin-top: 2rem;
-    border-top: 2px solid #8b7ba8;
+    border-top: 2px solid var(--light-purple);
   }
   a {
-    color: #b8a8d4;
+    color: var(--light-purple);
     text-decoration: none;
   }
   .copyright {
-    color: #9988bb;
+    color: var(--primary-purple);
     margin-top: 1rem;
     font-size: 0.9rem;
   }

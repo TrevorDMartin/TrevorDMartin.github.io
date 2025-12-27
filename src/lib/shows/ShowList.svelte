@@ -6,8 +6,7 @@
   let showUpcoming: boolean = true;
 </script>
 
-<BodySection id="shows">
-  <h2>Shows</h2>
+<BodySection heading="Shows">
   <div class="toggle-group">
     <button class:active={showUpcoming} on:click={() => (showUpcoming = true)}> Upcoming </button>
     <button class:active={!showUpcoming} on:click={() => (showUpcoming = false)}> Past </button>
