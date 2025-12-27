@@ -57,6 +57,7 @@
       width: 85%;
     }
   }
+
   @media (min-width: 1024px) {
     .header-video {
       width: 65%;

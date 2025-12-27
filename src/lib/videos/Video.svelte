@@ -1,5 +1,5 @@
 <script>
-  import YoutubeEmbed from "./YoutubeEmbed.svelte";
+  import YoutubeEmbed from './YoutubeEmbed.svelte';
 </script>
 
 <div class="video-grid">
@@ -22,7 +22,6 @@
     width: 100%;
     padding-top: 56.25%; /* 16:9 Aspect Ratio */
     background: var(--card-bg);
-    border: 2px solid var(--primary-purple);
   }
 
   .content {

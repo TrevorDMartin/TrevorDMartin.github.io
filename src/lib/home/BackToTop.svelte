@@ -9,21 +9,15 @@
   function scrollToTop() {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
-
 </script>
+
 <svelte:window onscroll={handleScroll} />
 
 {#if visible}
-  <button 
-    onclick={scrollToTop} 
-    aria-label="Back to top"
-    class="back-to-top"
-  >
-    ↑
-  </button>
+  <button onclick={scrollToTop} aria-label="Back to top" class="back-to-top"> ↑ </button>
 {/if}
 
 <style>
@@ -40,7 +34,9 @@
     z-index: 1001; /* Higher than your Navbar's 1000 */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     font-size: 1.5rem;
-    transition: opacity 0.3s, transform 0.2s;
+    transition:
+      opacity 0.3s,
+      transform 0.2s;
   }
 
   .back-to-top:hover {

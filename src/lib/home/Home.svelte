@@ -7,7 +7,7 @@
   import About from '$lib/About.svelte';
   import Press from '$lib/Press.svelte';
   import Footer from '$lib/Footer.svelte';
-  import Music from '$lib/Music.svelte';
+  import Music from '$lib/music/Music.svelte';
   import BodySection from '$lib/home/BodySection.svelte';
   import type { Component } from 'svelte';
   import type { NavLink } from '../types';
