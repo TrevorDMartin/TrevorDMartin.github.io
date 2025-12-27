@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ProgressBar from './common/ProgressBar.svelte';
   import type { NavLink } from './types';
 
   interface Props {
@@ -9,7 +8,6 @@
   const { links }: Props = $props();
 </script>
 
-<ProgressBar />
 <nav>
   <div class="nav-inner">
     <ul>

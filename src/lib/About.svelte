@@ -1,7 +1,3 @@
-<script lang="ts">
-  import BodySection from './BodySection.svelte';
-</script>
-
 <div class="bio">
   <p>
     Cassettiquette is an indie rock band from Charlotte, NC, blending introspective lyrics with

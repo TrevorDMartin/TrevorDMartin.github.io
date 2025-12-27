@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import type { NavLink } from './types';
+  import type { NavLink } from '../types';
 
   interface Props extends NavLink {
     children: Snippet;

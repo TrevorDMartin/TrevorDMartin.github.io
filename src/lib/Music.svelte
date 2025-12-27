@@ -1,7 +1,3 @@
-<script lang="ts">
-  import BodySection from '$lib/BodySection.svelte';
-</script>
-
 <div class="music-player">
   <p>Apple Music Embedded Player Placeholder</p>
 </div>

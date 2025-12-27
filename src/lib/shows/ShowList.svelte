@@ -1,5 +1,4 @@
 <script lang="ts">
-  import BodySection from '../BodySection.svelte';
   import { getSortedShows } from './showsUtil';
 
   const { upcoming, past } = getSortedShows();

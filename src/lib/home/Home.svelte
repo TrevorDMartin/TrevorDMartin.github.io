@@ -2,16 +2,16 @@
   import Header from '$lib/Header.svelte';
   import Navbar from '$lib/Navbar.svelte';
   import Photos from '$lib/photos/PhotoGallery.svelte';
-  import MusicVideo from '$lib/Video.svelte';
+  import MusicVideo from '$lib/videos/Video.svelte';
   import ShowList from '$lib/shows/ShowList.svelte';
   import About from '$lib/About.svelte';
   import Press from '$lib/Press.svelte';
   import Footer from '$lib/Footer.svelte';
   import Music from '$lib/Music.svelte';
-  import BodySection from '$lib/BodySection.svelte';
+  import BodySection from '$lib/home/BodySection.svelte';
   import type { Component } from 'svelte';
-  import type { NavLink } from './types';
-  import BackToTop from './common/BackToTop.svelte';
+  import type { NavLink } from '../types';
+  import BackToTop from './home/BackToTop.svelte';
 
   interface BodyComponent extends NavLink {
     component: Component;
