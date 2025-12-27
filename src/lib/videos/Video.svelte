@@ -1,9 +1,12 @@
+<script>
+  import YoutubeEmbed from "./YoutubeEmbed.svelte";
+</script>
+
 <div class="video-grid">
   <div class="aspect-ratio-box">
-    <div class="content">Music Video</div>
-  </div>
-  <div class="aspect-ratio-box">
-    <div class="content">Live at The Bowery</div>
+    <div class="content">
+      <YoutubeEmbed videoId="ENi5SFBelGM" title="The Milestone" />
+    </div>
   </div>
 </div>
 
@@ -18,8 +21,8 @@
     position: relative;
     width: 100%;
     padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    background: #1a1a1a;
-    border: 2px dashed #8b7ba8;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-purple);
   }
 
   .content {
@@ -35,7 +38,6 @@
 
   @media (min-width: 768px) {
     .video-grid {
-      grid-template-columns: 1fr 1fr; /* Desktop: 2 columns */
       gap: 2rem;
     }
   }
