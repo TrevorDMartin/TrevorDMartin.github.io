@@ -2,11 +2,9 @@
   import BodySection from '$lib/BodySection.svelte';
 </script>
 
-<BodySection heading="Music">
-  <div class="music-player">
-    <p>Apple Music Embedded Player Placeholder</p>
-  </div>
-</BodySection>
+<div class="music-player">
+  <p>Apple Music Embedded Player Placeholder</p>
+</div>
 
 <style>
   .music-player {

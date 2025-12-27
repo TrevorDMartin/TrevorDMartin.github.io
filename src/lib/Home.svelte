@@ -1,28 +1,44 @@
 <script lang="ts">
   import Header from '$lib/Header.svelte';
   import Navbar from '$lib/Navbar.svelte';
-  import Gallery from '$lib/gallery/Gallery.svelte';
+  import Photos from '$lib/photos/PhotoGallery.svelte';
   import MusicVideo from '$lib/Video.svelte';
   import ShowList from '$lib/shows/ShowList.svelte';
   import About from '$lib/About.svelte';
   import Press from '$lib/Press.svelte';
   import Footer from '$lib/Footer.svelte';
   import Music from '$lib/Music.svelte';
+  import BodySection from '$lib/BodySection.svelte';
+  import type { Component } from 'svelte';
+  import type { NavLink } from './types';
+  import BackToTop from './common/BackToTop.svelte';
+
+  interface BodyComponent extends NavLink {
+    component: Component;
+  }
+
+  const components: BodyComponent[] = [
+    { label: 'Photos', id: 'photos', component: Photos },
+    { label: 'Videos', id: 'videos', component: MusicVideo },
+    { label: 'Music', id: 'music', component: Music },
+    { label: 'Shows', id: 'shows', component: ShowList },
+    { label: 'About', id: 'about', component: About },
+    { label: 'Press', id: 'press', component: Press },
+  ];
 </script>
 
 <Header />
-<Navbar />
-
+<Navbar links={components} />
 <main>
-  <Gallery />
-  <MusicVideo />
-  <Music />
-  <ShowList />
-  <About />
-  <Press />
+  {#each components as component (component.label)}
+    <BodySection {...component}>
+      <svelte:component this={component.component} />
+    </BodySection>
+  {/each}
 </main>
 
 <Footer />
+<BackToTop />
 
 <style>
   main {

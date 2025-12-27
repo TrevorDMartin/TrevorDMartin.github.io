@@ -1,5 +1,4 @@
 <script lang="ts">
-  import BodySection from './BodySection.svelte';
   import type { PressItem } from './types';
 
   const quotes: PressItem[] = [
@@ -11,14 +10,12 @@
   ];
 </script>
 
-<BodySection heading="Press">
-  {#each quotes as item (item.outlet)}
-    <div class="press-item">
-      <div class="press-outlet">{item.outlet}</div>
-      <div class="press-quote">"{item.quote}"</div>
-    </div>
-  {/each}
-</BodySection>
+{#each quotes as item (item.outlet)}
+  <div class="press-item">
+    <div class="press-outlet">{item.outlet}</div>
+    <div class="press-quote">"{item.quote}"</div>
+  </div>
+{/each}
 
 <style>
   .press-item {

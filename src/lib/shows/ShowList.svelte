@@ -6,27 +6,25 @@
   let showUpcoming: boolean = true;
 </script>
 
-<BodySection heading="Shows">
-  <div class="toggle-group">
-    <button class:active={showUpcoming} on:click={() => (showUpcoming = true)}> Upcoming </button>
-    <button class:active={!showUpcoming} on:click={() => (showUpcoming = false)}> Past </button>
-  </div>
+<div class="toggle-group">
+  <button class:active={showUpcoming} on:click={() => (showUpcoming = true)}> Upcoming </button>
+  <button class:active={!showUpcoming} on:click={() => (showUpcoming = false)}> Past </button>
+</div>
 
-  <div class="list">
-    {#each showUpcoming ? upcoming : past as show (show.date)}
-      <div class="show-card">
-        <div class="info">
-          <span class="date">{show.date}</span>
-          <span class="venue">{show.venue}</span>
-          <span class="loc">{show.location}</span>
-        </div>
-        {#if showUpcoming}
-          <button class="tix">Tickets</button>
-        {/if}
+<div class="list">
+  {#each showUpcoming ? upcoming : past as show (show.date)}
+    <div class="show-card">
+      <div class="info">
+        <span class="date">{show.date}</span>
+        <span class="venue">{show.venue}</span>
+        <span class="loc">{show.location}</span>
       </div>
-    {/each}
-  </div>
-</BodySection>
+      {#if showUpcoming}
+        <button class="tix">Tickets</button>
+      {/if}
+    </div>
+  {/each}
+</div>
 
 <style>
   .toggle-group {

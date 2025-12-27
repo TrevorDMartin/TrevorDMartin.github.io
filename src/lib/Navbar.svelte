@@ -1,14 +1,12 @@
 <script lang="ts">
-  import ProgressBar from './ProgressBar.svelte';
+  import ProgressBar from './common/ProgressBar.svelte';
   import type { NavLink } from './types';
 
-  const links: NavLink[] = [
-    { label: 'Photos', href: '#photos' },
-    { label: 'Videos', href: '#videos' },
-    { label: 'Music', href: '#music' },
-    { label: 'Shows', href: '#shows' },
-    { label: 'Press', href: '#press' },
-  ];
+  interface Props {
+    links: NavLink[];
+  }
+
+  const { links }: Props = $props();
 </script>
 
 <ProgressBar />
@@ -17,7 +15,7 @@
     <ul>
       {#each links as link (link.label)}
         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-        <li><a href={link.href}>{link.label}</a></li>
+        <li><a href={'#' + link.id}>{link.label}</a></li>
       {/each}
     </ul>
   </div>

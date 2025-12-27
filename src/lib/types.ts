@@ -11,7 +11,7 @@ export interface PressItem {
 
 export interface NavLink {
   label: string;
-  href: string;
+  id: string;
 }
 
 export interface SocialLink {

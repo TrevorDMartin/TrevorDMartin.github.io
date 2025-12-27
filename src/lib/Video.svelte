@@ -1,17 +1,11 @@
-<script lang="ts">
-  import BodySection from '$lib/BodySection.svelte';
-</script>
-
-<BodySection heading="Videos">
-  <div class="video-grid">
-    <div class="aspect-ratio-box">
-      <div class="content">Music Video</div>
-    </div>
-    <div class="aspect-ratio-box">
-      <div class="content">Live at The Bowery</div>
-    </div>
+<div class="video-grid">
+  <div class="aspect-ratio-box">
+    <div class="content">Music Video</div>
   </div>
-</BodySection>
+  <div class="aspect-ratio-box">
+    <div class="content">Live at The Bowery</div>
+  </div>
+</div>
 
 <style>
   .video-grid {

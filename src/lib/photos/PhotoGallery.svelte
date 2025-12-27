@@ -1,10 +1,9 @@
 <script lang="ts">
   import type { PictureMetadata, PictureMetadataTrackLoading } from '$lib/types';
-  import GalleryImage from './GalleryImage.svelte';
+  import GalleryImage from './Photo.svelte';
   import Lightbox from './Lightbox.svelte';
   import NavArrow from './NavArrow.svelte';
-  import HandleSwipe from '$lib/actions/HandleSwipe.svelte';
-  import BodySection from '$lib/BodySection.svelte';
+  import HandleSwipe from '$lib/common/HandleSwipe.svelte';
 
   const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
     eager: true,
@@ -110,54 +109,52 @@
 
 <svelte:window onresize={updateItemsToShow} />
 
-<BodySection heading="Photos">
-  <HandleSwipe
-    threshold={75}
-    onSwipeLeft={manualPrev}
-    onSwipeRight={manualNext}
-    class="gallery-viewport"
-  >
-    <NavArrow
-      direction="PREV"
-      onclick={manualPrev}
-      ariaLabel="Previous photos"
-      class="gallery-nav-arrow gallery-nav-prev"
-    />
-    <NavArrow
-      direction="NEXT"
-      onclick={manualNext}
-      ariaLabel="Next photos"
-      class="gallery-nav-arrow gallery-nav-next"
-    />
+<HandleSwipe
+  threshold={75}
+  onSwipeLeft={manualPrev}
+  onSwipeRight={manualNext}
+  class="gallery-viewport"
+>
+  <NavArrow
+    direction="PREV"
+    onclick={manualPrev}
+    ariaLabel="Previous photos"
+    class="gallery-nav-arrow gallery-nav-prev"
+  />
+  <NavArrow
+    direction="NEXT"
+    onclick={manualNext}
+    ariaLabel="Next photos"
+    class="gallery-nav-arrow gallery-nav-next"
+  />
 
-    <div class="gallery-track" style:transform="translateX(-{offset}%)">
-      {#each photos as photo, i (photo.default.img.src)}
-        <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
-          <button
-            class="image-trigger"
-            onclick={() => {
-              stopAutoCycle();
-              selectedPhoto = photo;
+  <div class="gallery-track" style:transform="translateX(-{offset}%)">
+    {#each photos as photo, i (photo.default.img.src)}
+      <div class="gallery-slide" style:flex="0 0 {100 / itemsToShow}%">
+        <button
+          class="image-trigger"
+          onclick={() => {
+            stopAutoCycle();
+            selectedPhoto = photo;
+          }}
+          aria-label="Enlarge photo {i + 1}"
+        >
+          <GalleryImage
+            picture={photo}
+            alt="Band onstage {i + 1}"
+            priority={i < itemsToShow}
+            onLoad={() => {
+              photos[i].isLoading = false;
             }}
-            aria-label="Enlarge photo {i + 1}"
-          >
-            <GalleryImage
-              picture={photo}
-              alt="Band onstage {i + 1}"
-              priority={i < itemsToShow}
-              onLoad={() => {
-                photos[i].isLoading = false;
-              }}
-              onError={() => {
-                photos[i].isLoading = false;
-              }}
-            />
-          </button>
-        </div>
-      {/each}
-    </div>
-  </HandleSwipe>
-</BodySection>
+            onError={() => {
+              photos[i].isLoading = false;
+            }}
+          />
+        </button>
+      </div>
+    {/each}
+  </div>
+</HandleSwipe>
 
 <Lightbox
   picture={selectedPhoto}

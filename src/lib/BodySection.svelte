@@ -1,18 +1,16 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import type { NavLink } from './types';
 
-  interface Props {
-    heading: string;
+  interface Props extends NavLink {
     children: Snippet;
   }
 
-  const { heading, children }: Props = $props();
-
-  const id = $derived(heading.toLocaleLowerCase().replaceAll(' ', '-'));
+  const { label: title, id, children }: Props = $props();
 </script>
 
 <section {id}>
-  <h2>{heading}</h2>
+  <h2>{title}</h2>
   {@render children()}
 </section>
 
