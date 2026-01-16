@@ -1,7 +1,68 @@
 [
-  { "date": "2024-11-18", "venue": "Music Hall of Williamsburg", "location": "Brooklyn, NY" },
-  { "date": "2024-12-10", "venue": "The Bowery Ballroom", "location": "New York, NY" },
-  { "date": "2025-03-15", "venue": "The Velvet Underground", "location": "Brooklyn, NY" },
-  { "date": "2026-03-22", "venue": "Metro Music Hall", "location": "Chicago, IL" },
-  { "date": "2026-04-05", "venue": "The Echo", "location": "Los Angeles, CA" }
+  { "date": "2024-09-14", "venue": "Morningside", "location": "Charlotte, NC", "url": "" },
+  {
+    "date": "2024-10-12",
+    "venue": "Petras",
+    "location": "Charlotte, NC",
+    "url": "https://petrasbar.com/event/whistler-hillmouse-cassettiquette/",
+    "title": "Whistler | Hillmouse | Cassettiquette"
+  },
+  { "date": "2024-11-09", "venue": "Snug", "location": "Charlotte, NC", "url": "", "title": "" },
+  { "date": "2025-01-04", "venue": "Petras", "location": "Charlotte, NC", "url": "", "title": "" },
+  {
+    "date": "2025-02-07",
+    "venue": "Milestone",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": ""
+  },
+  {
+    "date": "2025-04-18",
+    "venue": "Evening Muse",
+    "location": "Charlotte, NC",
+    "url": "https://www.eventbrite.com/e/cassettiquette-ep-release-with-phantom-friends-tickets-1286161446509?aff=odwdwdspacecraft",
+    "title": "Cassettiquette EP Release"
+  },
+  {
+    "date": "2025-07-10",
+    "venue": "Snug Harbor",
+    "location": "Charlotte, NC",
+    "url": "https://ci.ovationtix.com/36423/production/1233971?performanceId=11612309",
+    "title": "WES PARKER  w/ Cassettiquette"
+  },
+  {
+    "date": "2025-08-22",
+    "venue": "Evening Muse",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": ""
+  },
+  {
+    "date": "2025-09-27",
+    "venue": "Evening Muse",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": ""
+  },
+  {
+    "date": "2025-11-10",
+    "venue": "Milestone",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": ""
+  },
+  {
+    "date": "2025-12-06",
+    "venue": "Snug Harbor",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": "Y'all Tide Benefit Show"
+  },
+  {
+    "date": "2026-01-15",
+    "venue": "Evening Muse",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": ""
+  }
 ]
