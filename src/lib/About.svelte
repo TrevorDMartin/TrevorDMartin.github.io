@@ -1,12 +1,12 @@
 <div class="bio">
   <p>
-    Cassettiquette is an indie rock band from Charlotte, NC, blending introspective lyrics with
-    dreamy, atmospheric sounds.<br />Fronted by Connor Hausman (vocals/guitar), with Emma Freas
-    (backing vox/keys) and Trevor Martin (drums) rounding out the core, the band's music explores a
-    mix of personal and fictional stories. Known for their diverse thematic range, Cassettiquette
-    crafts songs that invite listeners into a world of reflection, emotion, and narrative depth.<br
-    />In 2024, the band was recognized as Charlotte's Best New Band by Queen City Nerve. Their sound
-    continues to evolve while staying rooted in evocative storytelling.
+    Cassettiquette is an indie rock band from Charlotte, NC that blends introspective lyrics with
+    dreamy, atmospheric sounds.<br />Consisting of Connor Hausman (lead vocals/guitar), Emma Freas
+    (vocals/keys), Trevor Martin (drums), Korey Dudley (bass), and Beau Sigmon (guitar),
+    Cassettiquette pulls inspiration from bands like Death Cab for Cutie, The Killers, and
+    Radiohead.<br />In 2024, the band was recognized as Charlotte's Best New Band by Queen City
+    Nerve. Their music explores a mix of personal and fictional stories with a sound that continues
+    to evolve.
   </p>
 </div>
 
