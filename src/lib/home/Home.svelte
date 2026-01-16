@@ -1,11 +1,11 @@
 <script lang="ts">
   import Header from '$lib/Header.svelte';
   import Navbar from '$lib/Navbar.svelte';
-  import Photos from '$lib/photos/PhotoGallery.svelte';
+  import Photos from '$lib/PhotoGallery.svelte';
   import Videos from '$lib/videos/Video.svelte';
   import Shows from '$lib/shows/ShowList.svelte';
   import About from '$lib/About.svelte';
-  import Press from '$lib/Press.svelte';
+  import Press from '$lib/PressGallery.svelte';
   import Footer from '$lib/Footer.svelte';
   import Music from '$lib/music/Music.svelte';
   import BodySection from '$lib/home/BodySection.svelte';

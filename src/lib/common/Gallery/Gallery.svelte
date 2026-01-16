@@ -1,17 +1,15 @@
 <script lang="ts">
   import type { PictureMetadata, PictureMetadataTrackLoading } from '$lib/types';
-  import GalleryImage from './Photo.svelte';
+  import GalleryImage from './Picture.svelte';
   import Lightbox from './Lightbox.svelte';
   import NavArrow from './NavArrow.svelte';
   import HandleSwipe from '$lib/common/HandleSwipe.svelte';
 
-  const imageModules = import.meta.glob<PictureMetadata>('../assets/gallery/*.{jpg,jpeg,png}', {
-    eager: true,
-    query: {
-      w: '400:512;640;1280',
-      enhanced: true,
-    },
-  });
+  interface Props {
+    imageModules: Record<string, PictureMetadata>;
+  }
+
+  let { imageModules }: Props = $props();
 
   const photos: PictureMetadataTrackLoading[] = $state<PictureMetadataTrackLoading[]>(
     Object.entries(imageModules)

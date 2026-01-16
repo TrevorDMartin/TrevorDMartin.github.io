@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PictureMetadata } from '../types';
+  import type { PictureMetadata } from '../../types';
 
   interface Props {
     picture: PictureMetadata;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import HandleSwipe from '$lib/common/HandleSwipe.svelte';
-  import type { PictureMetadataTrackLoading } from '../types';
+  import type { PictureMetadataTrackLoading } from '../../types';
   import NavArrow from './NavArrow.svelte';
 
   interface Props {
