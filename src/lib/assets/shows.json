@@ -2,7 +2,7 @@
   { "date": "2024-09-14", "venue": "Morningside", "location": "Charlotte, NC", "url": "" },
   {
     "date": "2024-10-12",
-    "venue": "Petras",
+    "venue": "Petra's",
     "location": "Charlotte, NC",
     "url": "https://petrasbar.com/event/whistler-hillmouse-cassettiquette/",
     "title": "Whistler | Hillmouse | Cassettiquette"
@@ -61,6 +61,20 @@
   {
     "date": "2026-01-15",
     "venue": "Evening Muse",
+    "location": "Charlotte, NC",
+    "url": "",
+    "title": ""
+  },
+  {
+    "date": "2026-02-05",
+    "venue": "Petra's",
+    "location": "Charlotte, NC",
+    "url": "https://www.eventbrite.com/e/cassettiquette-north-by-north-tiny-city-tickets-1979755920251",
+    "title": "Tiny City | North by North | Cassettiquette"
+  },
+  {
+    "date": "2026-03-01",
+    "venue": "",
     "location": "Charlotte, NC",
     "url": "",
     "title": ""
