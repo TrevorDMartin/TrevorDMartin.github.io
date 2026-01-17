@@ -4,6 +4,7 @@ export interface Show {
   date: string;
   venue: string;
   location: string;
+  title?: string
   rawDate: Date;
 }
 

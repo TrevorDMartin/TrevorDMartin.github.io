@@ -11,9 +11,10 @@
 </div>
 
 <div class="list">
-  {#each showUpcoming ? upcoming : past as show (show.date)}
+  {#each showUpcoming ? upcoming : past as show (show.date)} 
     <div class="show-card">
       <div class="info">
+        <span class="title">{show.title}</span> 
         <span class="date">{show.date}</span>
         <span class="venue">{show.venue}</span>
         <span class="loc">{show.location}</span>
@@ -55,6 +56,21 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  } 
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  /* Styling for the new Show Title */
+  .title {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.25rem;
   }
 
   .date {
@@ -62,6 +78,7 @@
     font-weight: bold;
     color: #b8a8d4;
   }
+
   .venue {
     display: block;
     font-size: 1.2rem;
