@@ -1,11 +1,8 @@
 <footer>
   <div class="contact-info">
     <p>
-      <strong>Booking:</strong>
-      <a href="mailto:booking@cassettiquette.com">booking@cassettiquette.com</a>
-    </p>
-    <p>
-      <strong>Press:</strong> <a href="mailto:press@cassettiquette.com">press@cassettiquette.com</a>
+      <strong>Contact:</strong>
+      <a href="mailto:cassettiquetteband@gmail.com">cassettiquetteband@gmail.com</a>
     </p>
   </div>
   <p class="copyright">&copy; 2025 Cassettiquette. All rights reserved.</p>
