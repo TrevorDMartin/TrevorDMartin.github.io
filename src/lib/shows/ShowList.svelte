@@ -11,11 +11,11 @@
 </div>
 
 <div class="list">
-  {#each showUpcoming ? upcoming : past as show (show.date)} 
+  {#each showUpcoming ? upcoming : past as show (show.displayDate)} 
     <div class="show-card">
       <div class="info">
         <span class="title">{show.title}</span> 
-        <span class="date">{show.date}</span>
+        <span class="date">{show.displayDate}</span>
         <span class="venue">{show.venue}</span>
         <span class="loc">{show.location}</span>
       </div>
